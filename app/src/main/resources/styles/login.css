@@ -1,38 +1,44 @@
 /* Main application background */
 .root {
-    -fx-background-color: #101d42;
+    -fx-background-color: linear-gradient(to bottom, #0B235C, #1E2A3C);
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
 }
 
-/* Left Panel Styling */
-.left-panel {
-    -fx-background-color: linear-gradient(to bottom, #565d74, #444959);
-    -fx-background-radius: 0px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
-    -fx-padding: 30px;
+/* Main Login Container */
+.login-container {
+    -fx-background-color: transparent;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 20, 0, 0, 0);
+    -fx-background-radius: 15px;
+}
+
+/* Welcome Panel Styling */
+.welcome-panel {
+    -fx-background-color: rgba(255, 255, 255, 0.4);
+    -fx-background-radius: 15px 0 0 15px;
+    -fx-padding: 20px;
 }
 
 /* Background Circle Decoration */
 .background-circle {
     -fx-background-color: rgba(255, 255, 255, 0.1);
     -fx-background-radius: 100%;
-    -fx-min-width: 150px;
-    -fx-min-height: 150px;
-    -fx-max-width: 150px;
-    -fx-max-height: 150px;
+    -fx-min-width: 100px;
+    -fx-min-height: 100px;
+    -fx-max-width: 100px;
+    -fx-max-height: 100px;
 }
 
 /* Car Showroom Illustration Container */
 .illustration-container {
     -fx-background-color: rgba(255, 255, 255, 0.15);
-    -fx-background-radius: 300px 300px 0 0;
+    -fx-background-radius: 200px 200px 0 0;
     -fx-padding: 20px 20px 0 20px;
 }
 
-/* Right Panel Styling */
-.right-panel {
-    -fx-background-color: #bfbfc8;
-    -fx-background-radius: 20px;
+/* Form Panel Styling */
+.form-panel {
+    -fx-background-color: rgba(237, 237, 237, 0.9);
+    -fx-background-radius: 0 15px 15px 0;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
 }
 
@@ -90,6 +96,9 @@
 .forgot-password {
     -fx-text-fill: #4c7bf3;
     -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-decoration: underline;
+    -fx-font-style: italic;
     -fx-underline: false;
     -fx-border-width: 0;
 }

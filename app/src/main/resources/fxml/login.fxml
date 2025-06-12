@@ -19,83 +19,89 @@
             xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.bcms.controller.LoginController">
    <children>
-      <HBox alignment="CENTER" prefHeight="900.0" prefWidth="1400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <!-- Left Panel -->
-            <StackPane prefHeight="900.0" prefWidth="700.0" styleClass="left-panel">
+      <StackPane alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>            <!-- Main Login Container -->
+            <HBox maxHeight="500.0" maxWidth="1000.0" styleClass="login-container">
                <children>
-                  <!-- Background Circle Decoration -->
-                  <StackPane styleClass="background-circle" StackPane.alignment="TOP_LEFT">
-                     <StackPane.margin>
-                        <Insets left="50.0" top="50.0" />
-                     </StackPane.margin>
+                  <!-- Welcome Panel -->
+                  <StackPane prefWidth="600.0" styleClass="welcome-panel">
+                     <children>
+                        <!-- Background Circle Decoration -->
+                        <StackPane styleClass="background-circle" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="30.0" top="30.0" />
+                           </StackPane.margin>
+                        </StackPane>
+                        
+                        <VBox alignment="CENTER" spacing="20.0">
+                           <!-- Welcome Text -->
+                           <VBox alignment="CENTER_LEFT" spacing="5.0">
+                              <padding>
+                                 <Insets left="40.0" />
+                              </padding>
+                              <Label text="Welcome to" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Bestun Cars" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="36.0" />
+                                 </font>
+                              </Label>
+                           </VBox>
+                           
+                           <!-- Car Showroom Illustration -->
+                           <StackPane styleClass="illustration-container">
+                              <ImageView fitWidth="320.0" preserveRatio="true">
+                                 <Image url="@../images/car_showroom.png" />
+                              </ImageView>
+                           </StackPane>
+                        </VBox>
+                     </children>
                   </StackPane>
                   
-                  <VBox alignment="CENTER" spacing="20.0">
-                     <!-- Welcome Text -->
-                     <VBox alignment="CENTER_LEFT" spacing="5.0">
-                        <Label text="Welcome to" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="28.0" />
-                           </font>
-                        </Label>
-                        <Label text="Bestun Cars" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="40.0" />
-                           </font>
-                        </Label>
-                     </VBox>
-                     
-                     <!-- Car Showroom Illustration -->
-                     <StackPane styleClass="illustration-container">
-                        <ImageView fitWidth="400.0" preserveRatio="true">
-                           <Image url="@../images/car_showroom.png" />
-                        </ImageView>
-                     </StackPane>
-                  </VBox>
+                  <!-- Login Form Panel -->
+                  <StackPane prefWidth="500.0" styleClass="form-panel">
+                     <children>
+                        <VBox alignment="CENTER" maxWidth="350.0" spacing="20.0">
+                           <!-- Login Header -->
+                           <Label text="Login" styleClass="login-header">
+                              <font>
+                                 <Font name="System Bold" size="26.0" />
+                              </font>
+                           </Label>
+                           
+                           <!-- Email Field -->
+                           <VBox spacing="8.0">
+                              <Label text="Email" styleClass="field-label" />
+                              <TextField fx:id="emailField" promptText="Enter your email" styleClass="text-field" />
+                           </VBox>
+                           
+                           <!-- Password Field -->
+                           <VBox spacing="8.0">
+                              <Label text="Password" styleClass="field-label" />
+                              <PasswordField fx:id="passwordField" promptText="Enter your password" styleClass="text-field" />
+                           </VBox>
+                           
+                           <!-- Remember Me & Forgot Password -->
+                           <HBox alignment="CENTER_LEFT">
+                              <CheckBox fx:id="rememberMeCheckbox" text="Remember me" styleClass="remember-me" />
+                              <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                                 <Hyperlink fx:id="forgotPasswordLink" text="Forgot password?" styleClass="forgot-password" />
+                              </HBox>
+                           </HBox>
+                             <!-- Sign In Button -->
+                           <Button fx:id="signInButton" maxWidth="Infinity" mnemonicParsing="false" text="Sign In" styleClass="sign-in-button" />
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                  </StackPane>
                </children>
-            </StackPane>
-            
-            <!-- Right Panel -->
-            <StackPane prefHeight="900.0" prefWidth="700.0" styleClass="right-panel">
-               <children>
-                  <VBox alignment="CENTER" maxWidth="400.0" spacing="20.0">
-                     <!-- Login Header -->
-                     <Label text="Login" styleClass="login-header">
-                        <font>
-                           <Font name="System Bold" size="26.0" />
-                        </font>
-                     </Label>
-                     
-                     <!-- Email Field -->
-                     <VBox spacing="8.0">
-                        <Label text="Email" styleClass="field-label" />
-                        <TextField fx:id="emailField" promptText="Enter your email" styleClass="text-field" />
-                     </VBox>
-                     
-                     <!-- Password Field -->
-                     <VBox spacing="8.0">
-                        <Label text="Password" styleClass="field-label" />
-                        <PasswordField fx:id="passwordField" promptText="Enter your password" styleClass="text-field" />
-                     </VBox>
-                     
-                     <!-- Remember Me & Forgot Password -->
-                     <HBox alignment="CENTER_LEFT">
-                        <CheckBox fx:id="rememberMeCheckbox" text="Remember me" styleClass="remember-me" />
-                        <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
-                           <Hyperlink fx:id="forgotPasswordLink" text="Forgot password?" styleClass="forgot-password" />
-                        </HBox>
-                     </HBox>
-                     
-                     <!-- Sign In Button -->
-                     <Button fx:id="signInButton" maxWidth="Infinity" mnemonicParsing="false" text="Sign In" styleClass="sign-in-button" />
-                  </VBox>
-               </children>
-               <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </padding>
-            </StackPane>
+            </HBox>
          </children>
-      </HBox>
+      </StackPane>
    </children>
 </AnchorPane>
