@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane prefHeight="900.0" prefWidth="1400.0" stylesheets="@../styles/dashboard.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bcms.controller.DashboardController">
+   <left>
+      <!-- Sidebar -->
+      <VBox prefWidth="240.0" styleClass="sidebar" BorderPane.alignment="CENTER">
+         <children>
+            <!-- Branding -->
+            <VBox alignment="CENTER" prefHeight="120.0" prefWidth="240.0" styleClass="sidebar-header">
+               <children>
+                  <Label styleClass="brand-title" text="Bestun Cars" />
+                  <Label styleClass="brand-subtitle" text="Management System" />
+               </children>
+            </VBox>
+            
+            <!-- Navigation Menu -->
+            <VBox spacing="5.0" VBox.vgrow="ALWAYS">
+               <padding>
+                  <Insets left="20.0" right="20.0" top="20.0" />
+               </padding>
+               <children>
+                  <!-- Dashboard Button -->
+                  <Button fx:id="dashboardBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button, active" text="Dashboard">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Home.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  
+                  <!-- Cars Inventory Button -->
+                  <Button fx:id="inventoryBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Cars Inventory">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Car Rental.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  
+                  <!-- Repairs Button -->
+                  <Button fx:id="repairsBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Repairs &amp; Service">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Service.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  
+                  <!-- Sales Button -->
+                  <Button fx:id="salesBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Sales Reports">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Graph.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  
+                  <!-- Customers Button -->
+                  <Button fx:id="customersBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Customers">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/User Groups.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  
+                  <!-- Analytics Button -->
+                  <Button fx:id="analyticsBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Analytics">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Graph Report.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  
+                  <!-- Activity Button -->
+                  <Button fx:id="activityBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Activity">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/hugeicons_activity-03.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  
+                  <!-- Settings Button -->
+                  <Button fx:id="settingsBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Settings">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Settings.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  
+                  <!-- User Management Button -->
+                  <Button fx:id="userMgmtBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="User Management">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Male User.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </left>
+   
+   <center>
+      <!-- Main Content Area -->
+      <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="main-content">
+         <content>
+            <VBox spacing="30.0">
+               <padding>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </padding>
+               <children>
+                  <!-- Header -->
+                  <HBox alignment="CENTER_LEFT" spacing="20.0">
+                     <children>
+                        <VBox HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label styleClass="welcome-text" text="Welcome back, Farman!" />
+                           </children>
+                        </VBox>
+                        <Button mnemonicParsing="false" onAction="#handleAddNewCar" styleClass="primary-button" text="+ Add New Car" />
+                        <Button mnemonicParsing="false" styleClass="secondary-button" text="View Profile" />
+                     </children>
+                  </HBox>
+                  
+                  <!-- Stats Row -->
+                  <HBox spacing="20.0">
+                     <!-- Total Cars Card -->
+                     <children>
+                        <VBox prefHeight="150.0" prefWidth="400.0" styleClass="stat-card">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <Label styleClass="stat-title" text="Total Cars" />
+                              <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                 <children>
+                                    <Label styleClass="stat-value" text="142" />
+                                    <Label styleClass="stat-change-positive" text="+12%" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                 <children>
+                                    <HBox alignment="CENTER" spacing="5.0">
+                                       <children>
+                                          <Pane prefHeight="10.0" prefWidth="10.0" style="-fx-background-color: #3b82f6; -fx-background-radius: 5;" />
+                                          <Label styleClass="stat-label" text="Available: 98" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" spacing="5.0">
+                                       <children>
+                                          <Pane prefHeight="10.0" prefWidth="10.0" style="-fx-background-color: #f59e0b; -fx-background-radius: 5;" />
+                                          <Label styleClass="stat-label" text="Repair: 24" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" spacing="5.0">
+                                       <children>
+                                          <Pane prefHeight="10.0" prefWidth="10.0" style="-fx-background-color: #10b981; -fx-background-radius: 5;" />
+                                          <Label styleClass="stat-label" text="Sold: 14" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        
+                        <!-- Monthly Revenue Card -->
+                        <VBox prefHeight="150.0" prefWidth="400.0" styleClass="stat-card">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <Label styleClass="stat-title" text="Monthly Revenue" />
+                              <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                 <children>
+                                    <Label styleClass="stat-value" text="\$1.2M" />
+                                    <Label styleClass="stat-change-positive" text="+23%" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <LineChart fx:id="revenueChart" legendVisible="false" prefHeight="60.0" styleClass="mini-chart">
+                                <xAxis>
+                                  <CategoryAxis side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis side="LEFT" />
+                                </yAxis>
+                              </LineChart>
+                           </children>
+                        </VBox>
+                        
+                        <!-- Cars on Repair Card -->
+                        <VBox prefHeight="150.0" prefWidth="400.0" styleClass="stat-card">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <Label styleClass="stat-title" text="Car on Repairs" />
+                              <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                 <children>
+                                    <Label styleClass="stat-value" text="18" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <BarChart fx:id="repairsChart" legendVisible="false" prefHeight="60.0" styleClass="mini-chart">
+                                <xAxis>
+                                  <CategoryAxis side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis side="LEFT" />
+                                </yAxis>
+                              </BarChart>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  
+                  <!-- Quick Actions and Recent Activity Row -->
+                  <HBox spacing="20.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <!-- Quick Actions Card -->
+                        <VBox prefWidth="400.0" spacing="15.0" styleClass="action-card">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <Label styleClass="card-title" text="Quick Actions" />
+                              
+                              <!-- Add New Car Button -->
+                              <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleAddNewCar" prefHeight="50.0" styleClass="action-button, action-primary" text="Add New Car">
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/Add car.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              
+                              <!-- Quick Sale Button -->
+                              <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleQuickSale" prefHeight="50.0" styleClass="action-button" text="Quick Sale">
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/Sales Balance.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              
+                              <!-- Schedule Repair Button -->
+                              <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleScheduleRepair" prefHeight="50.0" styleClass="action-button" text="Schedule Repair">
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/Schedule.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              
+                              <!-- Generate Report Button -->
+                              <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleGenerateReport" prefHeight="50.0" styleClass="action-button" text="Generate Report">
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/Total Sales.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              
+                              <!-- Manage Customers Button -->
+                              <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleManageCustomers" prefHeight="50.0" styleClass="action-button" text="Manage Customers">
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/User Groups.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </VBox>
+                        
+                        <!-- Recent Activity Card -->
+                        <VBox HBox.hgrow="ALWAYS" styleClass="activity-card">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <Label styleClass="card-title" text="Recent Activity" />
+                              <ScrollPane fx:id="activityScroll" fitToWidth="true" styleClass="activity-scroll" VBox.vgrow="ALWAYS">
+                                 <content>
+                                    <VBox fx:id="activityList" spacing="15.0">
+                                       <padding>
+                                          <Insets top="15.0" />
+                                       </padding>
+                                       <children>
+                                          <!-- Activity Item 1 -->
+                                          <VBox styleClass="activity-item">
+                                             <padding>
+                                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                             </padding>
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                                   <children>
+                                                      <Label styleClass="activity-dot, activity-success" text="●" />
+                                                      <Label styleClass="activity-text" text="Added BMW X5 2023 to inventory" />
+                                                   </children>
+                                                </HBox>
+                                                <Label styleClass="activity-time" text="Car ID: #142 • 2 minutes ago" />
+                                             </children>
+                                          </VBox>
+                                          
+                                          <!-- Activity Item 2 -->
+                                          <VBox styleClass="activity-item">
+                                             <padding>
+                                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                             </padding>
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                                   <children>
+                                                      <Label styleClass="activity-dot, activity-info" text="●" />
+                                                      <Label styleClass="activity-text" text="Completed brake service for Toyota Camry" />
+                                                   </children>
+                                                </HBox>
+                                                <Label styleClass="activity-time" text="Repair ID: #87 • 1 hour ago" />
+                                             </children>
+                                          </VBox>
+                                          
+                                          <!-- Activity Item 3 -->
+                                          <VBox styleClass="activity-item">
+                                             <padding>
+                                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                             </padding>
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                                   <children>
+                                                      <Label styleClass="activity-dot, activity-success" text="●" />
+                                                      <Label styleClass="activity-text" text="Sale completed: \$42,000 - Honda Accord" />
+                                                   </children>
+                                                </HBox>
+                                                <Label styleClass="activity-time" text="Customer: John Smith • 3 hours ago" />
+                                             </children>
+                                          </VBox>
+                                          
+                                          <!-- Activity Item 4 -->
+                                          <VBox styleClass="activity-item">
+                                             <padding>
+                                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                             </padding>
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                                   <children>
+                                                      <Label styleClass="activity-dot, activity-warning" text="●" />
+                                                      <Label styleClass="activity-text" text="Pending insurance claim for Mercedes" />
+                                                   </children>
+                                                </HBox>
+                                                <Label styleClass="activity-time" text="Claim ID: #234 • 5 hours ago" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </center>
+</BorderPane>

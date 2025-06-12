@@ -1,21 +1,30 @@
 package com.bcms;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader; // Added import
-import javafx.scene.Parent; // Added import
-import javafx.scene.Scene; // Added import
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
+import java.io.IOException;
 
 public class MainApp extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        // Placeholder for FXML loading, e.g., login screen
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/LoginView.fxml")); // Load FXML
-        primaryStage.setTitle("BCMS Desktop - Login"); // Set title
-        primaryStage.setScene(new Scene(root)); // Create and set scene
-        primaryStage.show(); // Show the stage
-        // System.out.println("JavaFX Application Started"); // Commented out or removed
+    public void start(Stage primaryStage) throws IOException {
+        // Load the FXML file
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
+        Parent root = loader.load();
+        
+        // Create a scene
+        Scene scene = new Scene(root, 1400, 900);
+        
+        // Add the CSS file
+        scene.getStylesheets().add(getClass().getResource("/styles/login.css").toExternalForm());
+        
+        // Set up and show the stage
+        primaryStage.setTitle("Bestun Cars");
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
     public static void main(String[] args) {
