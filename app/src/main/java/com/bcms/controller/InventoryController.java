@@ -25,6 +25,7 @@ public class InventoryController implements Initializable {
     @FXML private Button salesBtn;
     @FXML private Button customersBtn;
     @FXML private Button analyticsBtn;
+    @FXML private Button financeBtn; // ADDED: Finance button
     @FXML private Button activityBtn;
     @FXML private Button settingsBtn;
     @FXML private Button userMgmtBtn;
@@ -109,6 +110,18 @@ public class InventoryController implements Initializable {
             System.out.println("Navigate to Analytics");
         });
         
+        // ADDED: Finance button
+        financeBtn.setOnAction(e -> {
+            try {
+                System.out.println("Finance button clicked - Navigating to finance page");
+                setActiveButton(financeBtn);
+                openFinance();
+            } catch (Exception ex) {
+                System.err.println("Error navigating to finance:");
+                ex.printStackTrace();
+            }
+        });
+        
         // Activity button
         activityBtn.setOnAction(e -> {
             setActiveButton(activityBtn);
@@ -139,6 +152,7 @@ public class InventoryController implements Initializable {
         salesBtn.getStyleClass().remove("active");
         customersBtn.getStyleClass().remove("active");
         analyticsBtn.getStyleClass().remove("active");
+        financeBtn.getStyleClass().remove("active"); // ADDED: Finance button
         activityBtn.getStyleClass().remove("active");
         settingsBtn.getStyleClass().remove("active");
         userMgmtBtn.getStyleClass().remove("active");
@@ -259,29 +273,7 @@ public class InventoryController implements Initializable {
         // Code to open Add New Car dialog
         // This would be implemented with a new stage or dialog
         System.out.println("Opening Add New Car dialog");
-        // Example implementation:
-        /*
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AddCarDialog.fxml"));
-            Parent dialogRoot = loader.load();
-            
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Add New Car");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(addNewCarButton.getScene().getWindow());
-            
-            Scene scene = new Scene(dialogRoot);
-            scene.getStylesheets().add(getClass().getResource("/styles/dashboard.css").toExternalForm());
-            
-            dialogStage.setScene(scene);
-            dialogStage.showAndWait();
-            
-            // Refresh the table after dialog closes
-            refreshTable();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        */
+        // Example implementation would go here
     }
     
     private void refreshTable() {
@@ -301,18 +293,68 @@ public class InventoryController implements Initializable {
         Stage currentStage = (Stage) dashboardBtn.getScene().getWindow();
         
         // Load the dashboard FXML
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Dashboard.fxml"));
+        URL fxmlUrl = getClass().getResource("/fxml/Dashboard.fxml");
+        if (fxmlUrl == null) {
+            System.err.println("ERROR: Cannot find Dashboard.fxml. Check your project structure.");
+            throw new IOException("Dashboard.fxml not found");
+        }
+        
+        FXMLLoader loader = new FXMLLoader(fxmlUrl);
         Parent root = loader.load();
         
         // Create a new scene
         Scene scene = new Scene(root, 1400, 900);
         
         // Add the CSS file
-        scene.getStylesheets().add(getClass().getResource("/styles/dashboard.css").toExternalForm());
+        URL cssUrl = getClass().getResource("/styles/dashboard.css");
+        if (cssUrl != null) {
+            scene.getStylesheets().add(cssUrl.toExternalForm());
+        } else {
+            System.err.println("WARNING: dashboard.css not found");
+        }
         
         // Set the scene to the current stage
         currentStage.setScene(scene);
         currentStage.setTitle("Bestun Cars Management System - Dashboard");
+    }
+    
+    // ADDED: Method to open Finance page
+    private void openFinance() throws IOException {
+        // Get the current stage
+        Stage currentStage = (Stage) financeBtn.getScene().getWindow();
+        
+        // Load the finance FXML
+        URL fxmlUrl = getClass().getResource("/fxml/finance.fxml");
+        if (fxmlUrl == null) {
+            System.err.println("ERROR: Cannot find Finance.fxml. Check your project structure.");
+            throw new IOException("Finance.fxml not found");
+        }
+        
+        FXMLLoader loader = new FXMLLoader(fxmlUrl);
+        Parent root = loader.load();
+        
+        // Create a new scene
+        Scene scene = new Scene(root, 1400, 900);
+        
+        // Add the CSS files
+        URL dashboardCssUrl = getClass().getResource("/styles/dashboard.css");
+        URL financeCssUrl = getClass().getResource("/styles/finance.css");
+        
+        if (dashboardCssUrl != null) {
+            scene.getStylesheets().add(dashboardCssUrl.toExternalForm());
+        } else {
+            System.err.println("WARNING: dashboard.css not found");
+        }
+        
+        if (financeCssUrl != null) {
+            scene.getStylesheets().add(financeCssUrl.toExternalForm());
+        } else {
+            System.err.println("WARNING: finance.css not found");
+        }
+        
+        // Set the scene to the current stage
+        currentStage.setScene(scene);
+        currentStage.setTitle("Bestun Cars Management System - Finance");
     }
     
     // Action handlers for edit, delete, and view buttons in each row

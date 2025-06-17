@@ -22,6 +22,7 @@ public class DashboardController implements Initializable {
     @FXML private Button salesBtn;
     @FXML private Button customersBtn;
     @FXML private Button analyticsBtn;
+    @FXML private Button financeBtn; // ADDED: Finance button
     @FXML private Button activityBtn;
     @FXML private Button settingsBtn;
     @FXML private Button userMgmtBtn;
@@ -78,7 +79,7 @@ public class DashboardController implements Initializable {
         // Dashboard button (already active)
         dashboardBtn.setOnAction(e -> System.out.println("Dashboard clicked"));
         
-        // Inventory button - MODIFIED: Added direct handler with try-catch
+        // Inventory button
         inventoryBtn.setOnAction(e -> {
             try {
                 System.out.println("Inventory button clicked - Navigating to inventory page");
@@ -116,6 +117,18 @@ public class DashboardController implements Initializable {
             setActiveButton(analyticsBtn);
             // Navigate to analytics view
             System.out.println("Navigate to Analytics");
+        });
+        
+        // ADDED: Finance button
+        financeBtn.setOnAction(e -> {
+            try {
+                System.out.println("Finance button clicked - Navigating to finance page");
+                setActiveButton(financeBtn);
+                openFinance();
+            } catch (Exception ex) {
+                System.err.println("Error navigating to finance:");
+                ex.printStackTrace();
+            }
         });
         
         // Activity button
@@ -212,6 +225,78 @@ public class DashboardController implements Initializable {
         }
     }
     
+    // ADDED: Method to open Finance page
+    private void openFinance() {
+        try {
+            // Get the current stage
+            Stage currentStage = (Stage) financeBtn.getScene().getWindow();
+            
+            // Debug output to verify resource paths
+            URL fxmlUrl = getClass().getResource("/fxml/finance.fxml");
+            if (fxmlUrl == null) {
+                System.err.println("ERROR: Cannot find finance.fxml. Check your project structure.");
+                // Try alternative paths
+                System.out.println("Trying alternative paths:");
+                System.out.println("- " + getClass().getResource("/finance.fxml"));
+                System.out.println("- " + getClass().getResource("../fxml/finance.fxml"));
+                System.out.println("- " + getClass().getResource("../../fxml/finance.fxml"));
+                return;
+            }
+            System.out.println("Found FXML at: " + fxmlUrl);
+            
+            // Load the finance FXML
+            FXMLLoader loader = new FXMLLoader(fxmlUrl);
+            Parent root = loader.load();
+            
+            // Create a new scene
+            Scene scene = new Scene(root, 1400, 900);
+            
+            // Check CSS resources
+            URL dashboardCssUrl = getClass().getResource("/styles/dashboard.css");
+            URL financeCssUrl = getClass().getResource("/styles/finance.css");
+            
+            if (dashboardCssUrl == null) {
+                System.err.println("ERROR: Cannot find dashboard.css. Check your project structure.");
+                // Try alternative paths
+                System.out.println("Trying alternative dashboard.css paths:");
+                System.out.println("- " + getClass().getResource("/dashboard.css"));
+                System.out.println("- " + getClass().getResource("../styles/dashboard.css"));
+            } else {
+                scene.getStylesheets().add(dashboardCssUrl.toExternalForm());
+                System.out.println("Added dashboard CSS: " + dashboardCssUrl);
+            }
+            
+            if (financeCssUrl == null) {
+                System.err.println("ERROR: Cannot find finance.css. Check your project structure.");
+                // Try alternative paths
+                System.out.println("Trying alternative finance.css paths:");
+                System.out.println("- " + getClass().getResource("/finance.css"));
+                System.out.println("- " + getClass().getResource("../styles/finance.css"));
+            } else {
+                scene.getStylesheets().add(financeCssUrl.toExternalForm());
+                System.out.println("Added finance CSS: " + financeCssUrl);
+            }
+            
+            // Set the scene to the current stage
+            currentStage.setScene(scene);
+            currentStage.setTitle("Bestun Cars Management System - Finance");
+            System.out.println("Successfully navigated to Finance page");
+            
+        } catch (IOException ex) {
+            System.err.println("Error loading finance page:");
+            ex.printStackTrace();
+            
+            // Display alert to the user
+            javafx.scene.control.Alert alert = new javafx.scene.control.Alert(
+                javafx.scene.control.Alert.AlertType.ERROR,
+                "Could not load the Finance page. Error: " + ex.getMessage()
+            );
+            alert.setTitle("Navigation Error");
+            alert.setHeaderText("Failed to open Finance");
+            alert.showAndWait();
+        }
+    }
+    
     private void setActiveButton(Button activeBtn) {
         // Remove active class from all buttons
         dashboardBtn.getStyleClass().remove("active");
@@ -220,6 +305,7 @@ public class DashboardController implements Initializable {
         salesBtn.getStyleClass().remove("active");
         customersBtn.getStyleClass().remove("active");
         analyticsBtn.getStyleClass().remove("active");
+        financeBtn.getStyleClass().remove("active"); // ADDED: Finance button
         activityBtn.getStyleClass().remove("active");
         settingsBtn.getStyleClass().remove("active");
         userMgmtBtn.getStyleClass().remove("active");

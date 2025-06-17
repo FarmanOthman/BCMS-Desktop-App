@@ -102,6 +102,17 @@
                      </graphic>
                   </Button>
                   
+                  <!-- ADDED: Finance Button -->
+                  <Button fx:id="financeBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Finance">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Money.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  
                   <!-- Activity Button -->
                   <Button fx:id="activityBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Activity">
                      <graphic>
