@@ -1,11 +1,16 @@
 package com.bcms.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -73,11 +78,16 @@ public class DashboardController implements Initializable {
         // Dashboard button (already active)
         dashboardBtn.setOnAction(e -> System.out.println("Dashboard clicked"));
         
-        // Inventory button
+        // Inventory button - MODIFIED: Added direct handler with try-catch
         inventoryBtn.setOnAction(e -> {
-            setActiveButton(inventoryBtn);
-            // Navigate to inventory view
-            System.out.println("Navigate to Inventory");
+            try {
+                System.out.println("Inventory button clicked - Navigating to inventory page");
+                setActiveButton(inventoryBtn);
+                openInventory();
+            } catch (Exception ex) {
+                System.err.println("Error navigating to inventory:");
+                ex.printStackTrace();
+            }
         });
         
         // Repairs button
@@ -130,6 +140,78 @@ public class DashboardController implements Initializable {
         });
     }
     
+    // MODIFIED: Improved error handling and resource loading
+    private void openInventory() {
+        try {
+            // Get the current stage
+            Stage currentStage = (Stage) inventoryBtn.getScene().getWindow();
+            
+            // Debug output to verify resource paths
+            URL fxmlUrl = getClass().getResource("/fxml/Inventory.fxml");
+            if (fxmlUrl == null) {
+                System.err.println("ERROR: Cannot find Inventory.fxml. Check your project structure.");
+                // Try alternative paths
+                System.out.println("Trying alternative paths:");
+                System.out.println("- " + getClass().getResource("/Inventory.fxml"));
+                System.out.println("- " + getClass().getResource("../fxml/Inventory.fxml"));
+                System.out.println("- " + getClass().getResource("../../fxml/Inventory.fxml"));
+                return;
+            }
+            System.out.println("Found FXML at: " + fxmlUrl);
+            
+            // Load the inventory FXML
+            FXMLLoader loader = new FXMLLoader(fxmlUrl);
+            Parent root = loader.load();
+            
+            // Create a new scene
+            Scene scene = new Scene(root, 1400, 900);
+            
+            // Check CSS resources
+            URL dashboardCssUrl = getClass().getResource("/styles/dashboard.css");
+            URL inventoryCssUrl = getClass().getResource("/styles/inventory.css");
+            
+            if (dashboardCssUrl == null) {
+                System.err.println("ERROR: Cannot find dashboard.css. Check your project structure.");
+                // Try alternative paths
+                System.out.println("Trying alternative dashboard.css paths:");
+                System.out.println("- " + getClass().getResource("/dashboard.css"));
+                System.out.println("- " + getClass().getResource("../styles/dashboard.css"));
+            } else {
+                scene.getStylesheets().add(dashboardCssUrl.toExternalForm());
+                System.out.println("Added dashboard CSS: " + dashboardCssUrl);
+            }
+            
+            if (inventoryCssUrl == null) {
+                System.err.println("ERROR: Cannot find inventory.css. Check your project structure.");
+                // Try alternative paths
+                System.out.println("Trying alternative inventory.css paths:");
+                System.out.println("- " + getClass().getResource("/inventory.css"));
+                System.out.println("- " + getClass().getResource("../styles/inventory.css"));
+            } else {
+                scene.getStylesheets().add(inventoryCssUrl.toExternalForm());
+                System.out.println("Added inventory CSS: " + inventoryCssUrl);
+            }
+            
+            // Set the scene to the current stage
+            currentStage.setScene(scene);
+            currentStage.setTitle("Bestun Cars Management System - Inventory");
+            System.out.println("Successfully navigated to Inventory page");
+            
+        } catch (IOException ex) {
+            System.err.println("Error loading inventory page:");
+            ex.printStackTrace();
+            
+            // Display alert to the user
+            javafx.scene.control.Alert alert = new javafx.scene.control.Alert(
+                javafx.scene.control.Alert.AlertType.ERROR,
+                "Could not load the Inventory page. Error: " + ex.getMessage()
+            );
+            alert.setTitle("Navigation Error");
+            alert.setHeaderText("Failed to open Inventory");
+            alert.showAndWait();
+        }
+    }
+    
     private void setActiveButton(Button activeBtn) {
         // Remove active class from all buttons
         dashboardBtn.getStyleClass().remove("active");
@@ -155,7 +237,14 @@ public class DashboardController implements Initializable {
     @FXML
     private void handleAddNewCar() {
         System.out.println("Add new car clicked");
-        // Open add car dialog
+        // MODIFIED: Added try-catch for better error handling
+        try {
+            // This could also navigate to the inventory page and open the add car dialog
+            openInventory();
+        } catch (Exception e) {
+            System.err.println("Error navigating to inventory from quick action:");
+            e.printStackTrace();
+        }
     }
     
     @FXML

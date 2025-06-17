@@ -45,17 +45,19 @@ public class LoginController {
         // Load the dashboard FXML
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Dashboard.fxml"));
         Parent root = loader.load();
-          // Create new stage for dashboard
+        
+        // Create new stage for dashboard
         Stage dashboardStage = new Stage();
-        Scene scene = new Scene(root, 1200, 750);
+        Scene scene = new Scene(root, 1400, 900);
         
         // Add the CSS file
         scene.getStylesheets().add(getClass().getResource("/styles/dashboard.css").toExternalForm());
-          // Set up the dashboard stage
+        
+        // Set up the dashboard stage
         dashboardStage.setTitle("Bestun Cars Management System");
         dashboardStage.setScene(scene);
-        dashboardStage.setMinWidth(1000);
-        dashboardStage.setMinHeight(700);
+        dashboardStage.setMinWidth(1200);
+        dashboardStage.setMinHeight(800);
         
         // Show the dashboard
         dashboardStage.show();

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<HBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bcms.controller.InventoryController">
+    <!-- Sidebar -->
+    <VBox styleClass="sidebar" prefWidth="250" spacing="10">
+        <!-- Brand Header -->
+        <VBox styleClass="sidebar-header" alignment="CENTER">
+            <Text styleClass="brand-title" text="Bestun Cars" fill="WHITE" />
+            <Text styleClass="brand-subtitle" text="Management System" fill="WHITE" />
+        </VBox>
+        
+        <!-- Navigation Menu -->
+        <VBox spacing="5" VBox.vgrow="ALWAYS">
+            <padding>
+                <Insets top="20" right="10" bottom="10" left="10" />
+            </padding>
+            <!-- Dashboard -->
+            <Button fx:id="dashboardBtn" styleClass="nav-button" text="Dashboard" />
+            
+            <!-- Inventory (active) -->
+            <Button fx:id="inventoryBtn" styleClass="nav-button, active" text="Cars Inventory" />
+            
+            <!-- Repairs & Service -->
+            <Button fx:id="repairsBtn" styleClass="nav-button" text="Repairs &amp; Service" />
+            
+            <!-- Sales -->
+            <Button fx:id="salesBtn" styleClass="nav-button" text="Sales Reports" />
+            
+            <!-- Customers -->
+            <Button fx:id="customersBtn" styleClass="nav-button" text="Customers" />
+            
+            <!-- Analytics -->
+            <Button fx:id="analyticsBtn" styleClass="nav-button" text="Analytics" />
+            
+            <!-- Activity -->
+            <Button fx:id="activityBtn" styleClass="nav-button" text="Activity" />
+            
+            <!-- Settings -->
+            <Button fx:id="settingsBtn" styleClass="nav-button" text="Settings" />
+            
+            <!-- User Management -->
+            <Button fx:id="userMgmtBtn" styleClass="nav-button" text="User Management" />
+        </VBox>
+    </VBox>
+    
+    <!-- Main Content -->
+    <ScrollPane styleClass="main-content" fitToWidth="true" fitToHeight="true" HBox.hgrow="ALWAYS">
+        <VBox spacing="20">
+            <padding>
+                <Insets top="30" right="30" bottom="30" left="30" />
+            </padding>
+            <!-- Header -->
+            <HBox alignment="CENTER_LEFT" spacing="20">
+                <VBox>
+                    <Text styleClass="welcome-text" text="Car Inventory" fill="WHITE" />
+                    <Text styleClass="welcome-subtitle" text="Manage all available vehicles in your dealership" fill="WHITE" />
+                </VBox>
+                
+                <Region HBox.hgrow="ALWAYS" />
+                
+                <!-- Action Buttons -->
+                <Button fx:id="addNewCarButton" styleClass="primary-button" text="+ Add New Car" />
+                <Button fx:id="deleteButton" styleClass="delete-button" text="Delete" />
+                <Button fx:id="exportCSVButton" styleClass="secondary-button" text="Export CSV" />
+            </HBox>
+            
+            <!-- Filters Section -->
+            <HBox styleClass="filters-section" spacing="15" alignment="CENTER_LEFT">
+                <!-- Search Field -->
+                <VBox>
+                    <Label text="Search Vehicles" />
+                    <TextField fx:id="searchField" prefWidth="400" promptText="Search by make, model, VIN, or year..." />
+                </VBox>
+                
+                <!-- Status Filter -->
+                <VBox>
+                    <Label text="Status" />
+                    <ComboBox fx:id="statusFilter" prefWidth="200" />
+                </VBox>
+                
+                <!-- Year Range Filter -->
+                <VBox>
+                    <Label text="Range" />
+                    <ComboBox fx:id="yearRangeFilter" prefWidth="200" />
+                </VBox>
+                
+                <Region HBox.hgrow="ALWAYS" />
+                
+                <!-- Reset Button -->
+                <Button fx:id="resetButton" styleClass="reset-button" text="Reset" />
+            </HBox>
+            
+            <!-- Table View -->
+            <TableView fx:id="carTableView" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="selectColumn" prefWidth="40" text="" />
+                    <TableColumn fx:id="idColumn" prefWidth="60" text="ID" />
+                    <TableColumn fx:id="vehicleColumn" prefWidth="200" text="Vehicle" />
+                    <TableColumn fx:id="yearColumn" prefWidth="80" text="Year" />
+                    <TableColumn fx:id="priceColumn" prefWidth="100" text="Price" />
+                    <TableColumn fx:id="statusColumn" prefWidth="100" text="Status" />
+                    <TableColumn fx:id="vinColumn" prefWidth="150" text="VIN" />
+                    <TableColumn fx:id="addedColumn" prefWidth="120" text="Added" />
+                    <TableColumn fx:id="actionsColumn" prefWidth="120" text="Actions" />
+                </columns>
+            </TableView>
+            
+            <!-- Pagination -->
+            <HBox alignment="CENTER">
+                <Pagination fx:id="pagination" maxPageIndicatorCount="5" />
+            </HBox>
+        </VBox>
+    </ScrollPane>
+</HBox>

@@ -14,8 +14,9 @@ public class MainApp extends Application {
         // Load the FXML file
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
         Parent root = loader.load();
-          // Create a scene
-        Scene scene = new Scene(root, 1200, 750);
+        
+        // Create a scene
+        Scene scene = new Scene(root, 1400, 900);
         
         // Add the CSS file
         scene.getStylesheets().add(getClass().getResource("/styles/login.css").toExternalForm());
