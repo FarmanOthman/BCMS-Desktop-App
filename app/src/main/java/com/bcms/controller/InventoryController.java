@@ -91,9 +91,19 @@ public class InventoryController implements Initializable {
         
         // Sales button
         salesBtn.setOnAction(e -> {
-            setActiveButton(salesBtn);
-            // Navigate to sales view
-            System.out.println("Navigate to Sales");
+            try {
+                setActiveButton(salesBtn);
+                openSales();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                System.err.println("Error navigating to Sales: " + ex.getMessage());
+                
+                // Show alert dialog
+                Alert alert = new Alert(Alert.AlertType.ERROR, 
+                    "Could not navigate to Sales page. Error: " + ex.getMessage());
+                alert.setHeaderText("Navigation Error");
+                alert.showAndWait();
+            }
         });
         
         // Customers button
@@ -355,6 +365,45 @@ public class InventoryController implements Initializable {
         // Set the scene to the current stage
         currentStage.setScene(scene);
         currentStage.setTitle("Bestun Cars Management System - Finance");
+    }
+    
+    // ADDED: Method to open Sales page
+    private void openSales() throws IOException {
+        // Get the current stage
+        Stage currentStage = (Stage) salesBtn.getScene().getWindow();
+        
+        // Load the sales FXML
+        URL fxmlUrl = getClass().getResource("/fxml/Sales.fxml");
+        if (fxmlUrl == null) {
+            System.err.println("ERROR: Cannot find Sales.fxml. Check your project structure.");
+            throw new IOException("Sales.fxml not found");
+        }
+        
+        FXMLLoader loader = new FXMLLoader(fxmlUrl);
+        Parent root = loader.load();
+        
+        // Create a new scene
+        Scene scene = new Scene(root, 1400, 900);
+        
+        // Add the CSS files
+        URL dashboardCssUrl = getClass().getResource("/styles/dashboard.css");
+        URL salesCssUrl = getClass().getResource("/styles/sales.css");
+        
+        if (dashboardCssUrl != null) {
+            scene.getStylesheets().add(dashboardCssUrl.toExternalForm());
+        } else {
+            System.err.println("WARNING: dashboard.css not found");
+        }
+        
+        if (salesCssUrl != null) {
+            scene.getStylesheets().add(salesCssUrl.toExternalForm());
+        } else {
+            System.err.println("WARNING: sales.css not found");
+        }
+        
+        // Set the scene to the current stage
+        currentStage.setScene(scene);
+        currentStage.setTitle("Bestun Cars Management System - Sales");
     }
     
     // Action handlers for edit, delete, and view buttons in each row

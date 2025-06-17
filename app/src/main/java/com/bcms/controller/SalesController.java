@@ -1,6 +1,6 @@
 package com.bcms.controller;
 
-import com.bcms.viewmodel.FinanceViewModel;
+import com.bcms.viewmodel.SaleViewModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,16 +11,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class FinanceController implements Initializable {
+public class SalesController implements Initializable {
     
     @FXML private Button dashboardBtn;
     @FXML private Button inventoryBtn;
@@ -29,33 +27,34 @@ public class FinanceController implements Initializable {
     @FXML private Button customersBtn;
     @FXML private Button analyticsBtn;
     @FXML private Button financeBtn;
+    @FXML private Button activityBtn;
     @FXML private Button settingsBtn;
     @FXML private Button userMgmtBtn;
     
     @FXML private TextField searchField;
-    @FXML private ComboBox<String> typeFilter;
     @FXML private ComboBox<String> timeFilter;
+    @FXML private ComboBox<String> statusFilter;
     @FXML private Button resetButton;
-    @FXML private Button addExpenseButton;
-    @FXML private Button addIncomeButton;
+    @FXML private Button addSaleButton;
     @FXML private Button deleteButton;
+    @FXML private Button exportCSVButton;
     
-    @FXML private TableView<FinanceViewModel.FinanceRecord> financeTableView;
-    @FXML private TableColumn<FinanceViewModel.FinanceRecord, String> idColumn;
-    @FXML private TableColumn<FinanceViewModel.FinanceRecord, String> typeColumn;
-    @FXML private TableColumn<FinanceViewModel.FinanceRecord, String> categoryColumn;
-    @FXML private TableColumn<FinanceViewModel.FinanceRecord, String> amountColumn;
-    @FXML private TableColumn<FinanceViewModel.FinanceRecord, String> descriptionColumn;
-    @FXML private TableColumn<FinanceViewModel.FinanceRecord, String> dateColumn;
-    @FXML private TableColumn<FinanceViewModel.FinanceRecord, HBox> actionsColumn;
+    @FXML private TableView<SaleViewModel.SaleItem> salesTableView;
+    @FXML private TableColumn<SaleViewModel.SaleItem, String> idColumn;
+    @FXML private TableColumn<SaleViewModel.SaleItem, String> vehicleColumn;
+    @FXML private TableColumn<SaleViewModel.SaleItem, String> buyerNameColumn;
+    @FXML private TableColumn<SaleViewModel.SaleItem, String> salePriceColumn;
+    @FXML private TableColumn<SaleViewModel.SaleItem, String> profitLossColumn;
+    @FXML private TableColumn<SaleViewModel.SaleItem, String> statusColumn;
+    @FXML private TableColumn<SaleViewModel.SaleItem, HBox> actionsColumn;
     
     @FXML private Pagination pagination;
     
-    private FinanceViewModel viewModel;
+    private SaleViewModel viewModel;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        viewModel = new FinanceViewModel();
+        viewModel = new SaleViewModel();
         
         setupNavigationHandlers();
         setupFilters();
@@ -65,8 +64,8 @@ public class FinanceController implements Initializable {
     }
     
     private void setupNavigationHandlers() {
-        // Set Finance button as active
-        setActiveButton(financeBtn);
+        // Set Sales button as active
+        setActiveButton(salesBtn);
         
         // Dashboard button
         dashboardBtn.setOnAction(e -> {
@@ -97,17 +96,8 @@ public class FinanceController implements Initializable {
             System.out.println("Navigate to Repairs");
         });
         
-        // Sales button
-        salesBtn.setOnAction(e -> {
-            try {
-                setActiveButton(salesBtn);
-                openSales();
-                System.out.println("Sales button clicked - Navigating to sales page");
-            } catch (IOException ex) {
-                ex.printStackTrace();
-                showErrorAlert("Navigation Error", "Could not open Sales", ex.getMessage());
-            }
-        });
+        // Sales button (already active)
+        salesBtn.setOnAction(e -> System.out.println("Sales clicked"));
         
         // Customers button
         customersBtn.setOnAction(e -> {
@@ -123,8 +113,23 @@ public class FinanceController implements Initializable {
             System.out.println("Navigate to Analytics");
         });
         
-        // Finance button (already active)
-        financeBtn.setOnAction(e -> System.out.println("Finance clicked"));
+        // Finance button
+        financeBtn.setOnAction(e -> {
+            try {
+                setActiveButton(financeBtn);
+                openFinance();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                showErrorAlert("Navigation Error", "Could not open Finance", ex.getMessage());
+            }
+        });
+        
+        // Activity button
+        activityBtn.setOnAction(e -> {
+            setActiveButton(activityBtn);
+            // Navigate to activity view
+            System.out.println("Navigate to Activity");
+        });
         
         // Settings button
         settingsBtn.setOnAction(e -> {
@@ -150,6 +155,7 @@ public class FinanceController implements Initializable {
         customersBtn.getStyleClass().remove("active");
         analyticsBtn.getStyleClass().remove("active");
         financeBtn.getStyleClass().remove("active");
+        activityBtn.getStyleClass().remove("active");
         settingsBtn.getStyleClass().remove("active");
         userMgmtBtn.getStyleClass().remove("active");
         
@@ -158,11 +164,11 @@ public class FinanceController implements Initializable {
     }
     
     private void setupFilters() {
-        // Set up the type filter
-        typeFilter.setItems(FXCollections.observableArrayList(
-            "All Type", "Expense", "Income"
+        // Set up the status filter
+        statusFilter.setItems(FXCollections.observableArrayList(
+            "All Statuses", "Completed", "Pending", "Cancelled"
         ));
-        typeFilter.setValue("All Type");
+        statusFilter.setValue("All Statuses");
         
         // Set up the time filter
         timeFilter.setItems(FXCollections.observableArrayList(
@@ -171,18 +177,18 @@ public class FinanceController implements Initializable {
         timeFilter.setValue("All Time");
         
         // Set up search field
-        searchField.setPromptText("Search by Category or Description");
+        searchField.setPromptText("Search by car make, model, or buyer name...");
         
         // Reset button action
         resetButton.setOnAction(e -> {
             searchField.clear();
-            typeFilter.setValue("All Type");
+            statusFilter.setValue("All Statuses");
             timeFilter.setValue("All Time");
             refreshTable();
         });
         
         // Add listeners to filters to refresh table when changed
-        typeFilter.setOnAction(e -> refreshTable());
+        statusFilter.setOnAction(e -> refreshTable());
         timeFilter.setOnAction(e -> refreshTable());
         searchField.textProperty().addListener((obs, oldVal, newVal) -> refreshTable());
     }
@@ -190,15 +196,14 @@ public class FinanceController implements Initializable {
     private void setupTableView() {
         // Configure table columns
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        typeColumn.setCellValueFactory(new PropertyValueFactory<>("typeString"));
-        categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
-        amountColumn.setCellValueFactory(new PropertyValueFactory<>("formattedAmount"));
-        descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
-        dateColumn.setCellValueFactory(new PropertyValueFactory<>("formattedDate"));
-        actionsColumn.setCellValueFactory(new PropertyValueFactory<>("actions"));
+        vehicleColumn.setCellValueFactory(new PropertyValueFactory<>("vehicle"));
+        buyerNameColumn.setCellValueFactory(new PropertyValueFactory<>("customer"));
+        salePriceColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        profitLossColumn.setCellValueFactory(new PropertyValueFactory<>("profitLoss"));
+        statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
         
-        // Style the type column based on value
-        typeColumn.setCellFactory(col -> new TableCell<>() {
+        // Set up profit/loss column with color formatting
+        profitLossColumn.setCellFactory(col -> new TableCell<>() {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
@@ -210,18 +215,103 @@ public class FinanceController implements Initializable {
                 } else {
                     setText(item);
                     
-                    // Apply styles based on type
-                    if (item.equals("Expense")) {
-                        getStyleClass().add("expense-type");
-                    } else if (item.equals("Income")) {
-                        getStyleClass().add("income-type");
+                    // Apply styles based on profit/loss value
+                    if (item.startsWith("+")) {
+                        setStyle("-fx-text-fill: #10b981;"); // Positive in green
+                    } else if (item.startsWith("-")) {
+                        setStyle("-fx-text-fill: #ef4444;"); // Negative in red
+                    } else {
+                        setStyle("-fx-text-fill: white;"); // Default in white
                     }
                 }
             }
         });
         
+        // Style the status column based on value
+        statusColumn.setCellFactory(col -> new TableCell<>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                
+                if (empty || item == null) {
+                    setText(null);
+                    setGraphic(null);
+                    setStyle("");
+                } else {
+                    setText(item);
+                    
+                    // Apply styles based on status
+                    if (item.equals("Completed")) {
+                        setStyle("-fx-text-fill: #10b981;"); // Green for completed
+                    } else if (item.equals("Pending")) {
+                        setStyle("-fx-text-fill: #f59e0b;"); // Orange for pending
+                    } else if (item.equals("Cancelled")) {
+                        setStyle("-fx-text-fill: #ef4444;"); // Red for cancelled
+                    } else {
+                        setStyle("-fx-text-fill: white;"); // Default in white
+                    }
+                }
+            }
+        });
+        
+        // Set up actions column with buttons
+        actionsColumn.setCellValueFactory(param -> {
+            HBox actionBox = createActionButtons(param.getValue().getId());
+            return new javafx.beans.property.SimpleObjectProperty<>(actionBox);
+        });
+        
         // Load data into the table
         refreshTable();
+    }
+    
+    private HBox createActionButtons(String saleId) {
+        HBox hbox = new HBox(5); // 5 is the spacing
+        hbox.setAlignment(javafx.geometry.Pos.CENTER);
+        
+        // Edit button
+        Button editBtn = new Button();
+        editBtn.getStyleClass().add("action-icon");
+        
+        // Create an inner shape for the edit icon
+        Button editIcon = new Button();
+        editIcon.getStyleClass().add("edit-icon");
+        editIcon.setMinSize(15, 15);
+        editIcon.setMaxSize(15, 15);
+        
+        editBtn.setGraphic(editIcon);
+        editBtn.setTooltip(new Tooltip("Edit"));
+        editBtn.setOnAction(e -> handleEditSale(saleId));
+        
+        // Delete button
+        Button deleteBtn = new Button();
+        deleteBtn.getStyleClass().add("action-icon");
+        
+        // Create an inner shape for the delete icon
+        Button deleteIcon = new Button();
+        deleteIcon.getStyleClass().add("delete-icon");
+        deleteIcon.setMinSize(15, 15);
+        deleteIcon.setMaxSize(15, 15);
+        
+        deleteBtn.setGraphic(deleteIcon);
+        deleteBtn.setTooltip(new Tooltip("Delete"));
+        deleteBtn.setOnAction(e -> handleDeleteSale(saleId));
+        
+        // View details button
+        Button viewBtn = new Button();
+        viewBtn.getStyleClass().add("action-icon");
+        
+        // Create an inner shape for the view icon
+        Button viewIcon = new Button();
+        viewIcon.getStyleClass().add("view-icon");
+        viewIcon.setMinSize(15, 15);
+        viewIcon.setMaxSize(15, 15);
+        
+        viewBtn.setGraphic(viewIcon);
+        viewBtn.setTooltip(new Tooltip("View Details"));
+        viewBtn.setOnAction(e -> handleViewSaleDetails(saleId));
+        
+        hbox.getChildren().addAll(editBtn, deleteBtn, viewBtn);
+        return hbox;
     }
     
     private void setupPagination() {
@@ -230,146 +320,117 @@ public class FinanceController implements Initializable {
         pagination.setPageFactory(this::createPage);
     }
     
-    private TableView<FinanceViewModel.FinanceRecord> createPage(int pageIndex) {
+    private TableView<SaleViewModel.SaleItem> createPage(int pageIndex) {
         // This method would update the table with the correct page of data
         // For now, we'll just use the same data for each page
-        return financeTableView;
+        return salesTableView;
     }
     
     private void setupButtons() {
-        // Add Expense button
-        addExpenseButton.setOnAction(e -> {
-            System.out.println("Add Expense clicked");
-            openAddExpenseDialog();
-        });
-        
-        // Add Income button
-        addIncomeButton.setOnAction(e -> {
-            System.out.println("Add Income clicked");
-            openAddIncomeDialog();
+        // Add Sale button
+        addSaleButton.setOnAction(e -> {
+            System.out.println("Add Sale clicked");
+            openAddSaleDialog();
         });
         
         // Delete button
         deleteButton.setOnAction(e -> {
             System.out.println("Delete clicked");
-            deleteSelectedRecords();
+            deleteSelectedSales();
+        });
+        
+        // Export CSV button
+        exportCSVButton.setOnAction(e -> {
+            System.out.println("Export CSV clicked");
+            // Export data to CSV
         });
     }
     
-    private void openAddExpenseDialog() {
+    private void openAddSaleDialog() {
         // This would be implemented with a new stage or dialog
-        System.out.println("Opening Add Expense dialog");
+        System.out.println("Opening Add Sale dialog");
         
         // Sample implementation (in a real app, you would have a proper dialog)
         TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Add Expense");
-        dialog.setHeaderText("Enter expense details");
-        dialog.setContentText("Amount:");
+        dialog.setTitle("Add New Sale");
+        dialog.setHeaderText("Enter sale details");
+        dialog.setContentText("Vehicle ID:");
         
         Optional<String> result = dialog.showAndWait();
-        result.ifPresent(amountStr -> {
-            try {
-                double amount = Double.parseDouble(amountStr);
-                
-                // Generate new ID (in a real app, this would be handled by a service)
-                String newId = "#F" + String.format("%03d", viewModel.getAllRecords().size() + 1);
-                
-                // Create new expense record
-                FinanceViewModel.FinanceRecord newRecord = new FinanceViewModel.FinanceRecord(
-                    newId,
-                    FinanceViewModel.RecordType.EXPENSE,
-                    "New Expense",
-                    amount,
-                    "New expense added",
-                    LocalDate.now());
-                
-                // Add the record to view model
-                viewModel.addRecord(newRecord);
-                
-                // Refresh the table
-                refreshTable();
-            } catch (NumberFormatException ex) {
-                showErrorAlert("Invalid Input", "Please enter a valid number", "The amount must be a valid numeric value.");
-            }
+        result.ifPresent(vehicleId -> {
+            // In a real implementation, you would create a new sale record
+            // and add it to the sales table
+            System.out.println("Adding sale for vehicle ID: " + vehicleId);
+            
+            // Refresh the table to show the new sale
+            refreshTable();
         });
     }
     
-    private void openAddIncomeDialog() {
-        // This would be implemented with a new stage or dialog
-        System.out.println("Opening Add Income dialog");
-        
-        // Sample implementation (in a real app, you would have a proper dialog)
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Add Income");
-        dialog.setHeaderText("Enter income details");
-        dialog.setContentText("Amount:");
-        
-        Optional<String> result = dialog.showAndWait();
-        result.ifPresent(amountStr -> {
-            try {
-                double amount = Double.parseDouble(amountStr);
-                
-                // Generate new ID (in a real app, this would be handled by a service)
-                String newId = "#F" + String.format("%03d", viewModel.getAllRecords().size() + 1);
-                
-                // Create new income record
-                FinanceViewModel.FinanceRecord newRecord = new FinanceViewModel.FinanceRecord(
-                    newId,
-                    FinanceViewModel.RecordType.INCOME,
-                    "New Income",
-                    amount,
-                    "New income added",
-                    LocalDate.now());
-                
-                // Add the record to view model
-                viewModel.addRecord(newRecord);
-                
-                // Refresh the table
-                refreshTable();
-            } catch (NumberFormatException ex) {
-                showErrorAlert("Invalid Input", "Please enter a valid number", "The amount must be a valid numeric value.");
-            }
-        });
+    private void handleEditSale(String saleId) {
+        System.out.println("Edit sale with ID: " + saleId);
+        // Open edit dialog
     }
     
-    private void deleteSelectedRecords() {
-        // Get selected record
-        FinanceViewModel.FinanceRecord selectedRecord = financeTableView.getSelectionModel().getSelectedItem();
+    private void handleDeleteSale(String saleId) {
+        System.out.println("Delete sale with ID: " + saleId);
         
-        if (selectedRecord == null) {
-            showInfoAlert("No Selection", "No Record Selected", "Please select a record to delete.");
+        // Show confirmation dialog
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm Delete");
+        alert.setHeaderText("Delete Sale");
+        alert.setContentText("Are you sure you want to delete sale " + saleId + "?");
+        
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            // Delete the sale
+            System.out.println("Sale " + saleId + " deleted");
+            
+            // Refresh the table
+            refreshTable();
+        }
+    }
+    
+    private void handleViewSaleDetails(String saleId) {
+        System.out.println("View sale details with ID: " + saleId);
+        // Open details view
+    }
+    
+    private void deleteSelectedSales() {
+        // Get selected sale
+        SaleViewModel.SaleItem selectedSale = salesTableView.getSelectionModel().getSelectedItem();
+        
+        if (selectedSale == null) {
+            showInfoAlert("No Selection", "No Sale Selected", "Please select a sale to delete.");
             return;
         }
         
         // Show confirmation dialog
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirm Delete");
-        alert.setHeaderText("Delete Record");
-        alert.setContentText("Are you sure you want to delete the selected record?");
+        alert.setHeaderText("Delete Sale");
+        alert.setContentText("Are you sure you want to delete the selected sale?");
         
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            // Delete the record
-            boolean success = viewModel.removeRecord(selectedRecord.getId());
+            // In a real implementation, you would delete the sale from the database
+            System.out.println("Sale " + selectedSale.getId() + " deleted");
             
-            if (success) {
-                refreshTable();
-            } else {
-                showErrorAlert("Delete Error", "Could not delete record", "The record could not be deleted.");
-            }
+            // Refresh the table
+            refreshTable();
         }
     }
     
     private void refreshTable() {
         // Get the filtered data from view model based on current filters
-        String searchText = searchField.getText();
-        String typeValue = typeFilter.getValue();
+        String searchText = searchField.getText().toLowerCase();
+        String statusValue = statusFilter.getValue();
         String timeValue = timeFilter.getValue();
         
-        ObservableList<FinanceViewModel.FinanceRecord> filteredData = viewModel.getFilteredRecords(searchText, typeValue, timeValue);
+        ObservableList<SaleViewModel.SaleItem> filteredData = viewModel.searchSales(searchText, statusValue, timeValue);
         
         // Update the table with the filtered data
-        financeTableView.setItems(filteredData);
+        salesTableView.setItems(filteredData);
     }
     
     private void openDashboard() throws IOException {
@@ -440,16 +501,15 @@ public class FinanceController implements Initializable {
         currentStage.setTitle("Bestun Cars Management System - Inventory");
     }
     
-    // ADDED: Method to open Sales page
     private void openSales() throws IOException {
         // Get the current stage
         Stage currentStage = (Stage) salesBtn.getScene().getWindow();
         
         // Load the sales FXML
-        URL fxmlUrl = getClass().getResource("/fxml/Sales.fxml");
+        URL fxmlUrl = getClass().getResource("/fxml/sales.fxml");
         if (fxmlUrl == null) {
-            System.err.println("ERROR: Cannot find Sales.fxml. Check your project structure.");
-            throw new IOException("Sales.fxml not found");
+            System.err.println("ERROR: Cannot find sales.fxml. Check your project structure.");
+            throw new IOException("sales.fxml not found");
         }
         
         FXMLLoader loader = new FXMLLoader(fxmlUrl);
@@ -477,6 +537,47 @@ public class FinanceController implements Initializable {
         // Set the scene to the current stage
         currentStage.setScene(scene);
         currentStage.setTitle("Bestun Cars Management System - Sales");
+    }
+    
+    /**
+     * Navigate to the Finance page.
+     */
+    private void openFinance() throws IOException {
+        // Get the current stage
+        Stage currentStage = (Stage) financeBtn.getScene().getWindow();
+        
+        // Load the finance FXML
+        URL fxmlUrl = getClass().getResource("/fxml/finance.fxml");
+        if (fxmlUrl == null) {
+            System.err.println("ERROR: Cannot find finance.fxml. Check your project structure.");
+            throw new IOException("finance.fxml not found");
+        }
+        
+        FXMLLoader loader = new FXMLLoader(fxmlUrl);
+        Parent root = loader.load();
+        
+        // Create a new scene
+        Scene scene = new Scene(root, 1400, 900);
+        
+        // Add the CSS files
+        URL dashboardCssUrl = getClass().getResource("/styles/dashboard.css");
+        URL financeCssUrl = getClass().getResource("/styles/finance.css");
+        
+        if (dashboardCssUrl != null) {
+            scene.getStylesheets().add(dashboardCssUrl.toExternalForm());
+        } else {
+            System.err.println("WARNING: dashboard.css not found");
+        }
+        
+        if (financeCssUrl != null) {
+            scene.getStylesheets().add(financeCssUrl.toExternalForm());
+        } else {
+            System.err.println("WARNING: finance.css not found");
+        }
+        
+        // Set the scene to the current stage
+        currentStage.setScene(scene);
+        currentStage.setTitle("Bestun Cars Management System - Finance");
     }
     
     // Helper methods for showing alerts

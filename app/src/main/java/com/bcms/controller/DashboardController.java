@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -100,9 +101,14 @@ public class DashboardController implements Initializable {
         
         // Sales button
         salesBtn.setOnAction(e -> {
-            setActiveButton(salesBtn);
-            // Navigate to sales view
-            System.out.println("Navigate to Sales");
+            try {
+                System.out.println("Sales button clicked - Navigating to sales page");
+                setActiveButton(salesBtn);
+                openSales();
+            } catch (Exception ex) {
+                System.err.println("Error navigating to sales:");
+                ex.printStackTrace();
+            }
         });
         
         // Customers button
@@ -293,6 +299,74 @@ public class DashboardController implements Initializable {
             );
             alert.setTitle("Navigation Error");
             alert.setHeaderText("Failed to open Finance");
+            alert.showAndWait();
+        }
+    }
+    
+    // ADDED: Method to open Sales page
+    private void openSales() {
+        try {
+            // Get the current stage
+            Stage currentStage = (Stage) salesBtn.getScene().getWindow();
+            
+            // Debug output to verify resource paths
+            URL fxmlUrl = getClass().getResource("/fxml/Sales.fxml");
+            if (fxmlUrl == null) {
+                System.err.println("ERROR: Cannot find Sales.fxml. Check your project structure.");
+                // Try alternative paths
+                System.out.println("Trying alternative paths:");
+                System.out.println("- " + getClass().getResource("/Sales.fxml"));
+                System.out.println("- " + getClass().getResource("../fxml/Sales.fxml"));
+                System.out.println("- " + getClass().getResource("../../fxml/Sales.fxml"));
+                return;
+            }
+            System.out.println("Found FXML at: " + fxmlUrl);
+            
+            // Load the sales FXML
+            FXMLLoader loader = new FXMLLoader(fxmlUrl);
+            Parent root = loader.load();
+            
+            // Create a new scene
+            Scene scene = new Scene(root, 1400, 900);
+            
+            // Check CSS resources
+            URL dashboardCssUrl = getClass().getResource("/styles/dashboard.css");
+            URL salesCssUrl = getClass().getResource("/styles/sales.css");
+            
+            if (dashboardCssUrl == null) {
+                System.err.println("ERROR: Cannot find dashboard.css. Check your project structure.");
+                // Try alternative paths
+                System.out.println("Trying alternative dashboard.css paths:");
+                System.out.println("- " + getClass().getResource("/dashboard.css"));
+                System.out.println("- " + getClass().getResource("../styles/dashboard.css"));
+            } else {
+                scene.getStylesheets().add(dashboardCssUrl.toExternalForm());
+                System.out.println("Added dashboard CSS: " + dashboardCssUrl);
+            }
+            
+            if (salesCssUrl == null) {
+                System.err.println("ERROR: Cannot find sales.css. Using only dashboard.css");
+            } else {
+                scene.getStylesheets().add(salesCssUrl.toExternalForm());
+                System.out.println("Added sales CSS: " + salesCssUrl);
+            }
+            
+            // Set the scene to the current stage
+            currentStage.setScene(scene);
+            currentStage.setTitle("Bestun Cars Management System - Sales");
+            System.out.println("Successfully navigated to Sales page");
+            
+        } catch (IOException ex) {
+            System.err.println("Error loading sales page:");
+            ex.printStackTrace();
+            
+            // Display alert to the user
+            javafx.scene.control.Alert alert = new javafx.scene.control.Alert(
+                javafx.scene.control.Alert.AlertType.ERROR,
+                "Could not load the Sales page. Error: " + ex.getMessage()
+            );
+            alert.setTitle("Navigation Error");
+            alert.setHeaderText("Failed to open Sales");
             alert.showAndWait();
         }
     }
