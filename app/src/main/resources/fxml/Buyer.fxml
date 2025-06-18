@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<HBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bcms.controller.BuyerController" stylesheets="@../styles/buyer.css">
+    <!-- Sidebar -->
+    <VBox styleClass="sidebar" prefWidth="250" spacing="10">
+        <!-- Brand Header -->
+        <VBox styleClass="sidebar-header" alignment="CENTER">
+            <Text styleClass="brand-title" text="Bestun Cars" fill="WHITE" />
+            <Text styleClass="brand-subtitle" text="Management System" fill="WHITE" />
+        </VBox>
+        
+        <!-- Navigation Menu -->
+        <VBox spacing="5" VBox.vgrow="ALWAYS">
+            <padding>
+                <Insets top="20" right="10" bottom="10" left="10" />
+            </padding>
+            <!-- Dashboard -->
+            <Button fx:id="dashboardBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Dashboard">
+                <graphic>
+                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/Home.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            
+            <!-- Inventory -->
+            <Button fx:id="inventoryBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Cars Inventory">
+                <graphic>
+                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/Car Rental.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            
+            <!-- Repairs & Service -->
+            <Button fx:id="repairsBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Repairs &amp; Service">
+                <graphic>
+                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/Service.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            
+            <!-- Sales -->
+            <Button fx:id="salesBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Sales">
+                <graphic>
+                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/Total Sales.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            
+            <!-- Customers (active) -->
+            <Button fx:id="customersBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button, active" text="Customers">
+                <graphic>
+                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/User Groups.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            
+            <!-- Analytics -->
+            <Button fx:id="analyticsBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Analytics">
+                <graphic>
+                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/Graph.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            
+            <!-- Finance -->
+            <Button fx:id="financeBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Finance">
+                <graphic>
+                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/Money.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            
+            <!-- Settings -->
+            <Button fx:id="settingsBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Settings">
+                <graphic>
+                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/User Settings.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            
+            <!-- User Management -->
+            <Button fx:id="userMgmtBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="User Management">
+                <graphic>
+                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/Male User.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+        </VBox>
+    </VBox>
+    
+    <!-- Main Content Area -->
+    <VBox styleClass="main-content" HBox.hgrow="ALWAYS">
+        <VBox styleClass="content-header">
+            <padding>
+                <Insets top="20" right="30" bottom="20" left="30" />
+            </padding>
+            <HBox alignment="CENTER_LEFT" spacing="15">
+                <VBox>
+                    <Text styleClass="welcome-text" text="Buyers" fill="WHITE" />
+                    <Text styleClass="inventory-subtitle" text="Manage customer details for car sales" fill="WHITE" />
+                </VBox>
+                <HBox spacing="10" alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                    <Button fx:id="addBuyerButton" styleClass="action-button" text="Add Buyer">
+                        <graphic>
+                            <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../images/Add car.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="deleteButton" styleClass="delete-action-button" text="Delete" />
+                </HBox>
+            </HBox>
+        </VBox>
+        
+        <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="content-scroll">
+            <VBox spacing="20">
+                <padding>
+                    <Insets top="20" right="30" bottom="30" left="30" />
+                </padding>
+                
+                <!-- Filter Section -->
+                <VBox styleClass="card-container">
+                    <HBox styleClass="filters-section" spacing="15" alignment="CENTER_LEFT">
+                        <padding>
+                            <Insets top="15" right="15" bottom="15" left="15" />
+                        </padding>
+                        
+                        <!-- Search Field -->
+                        <HBox alignment="CENTER_LEFT" spacing="5">
+                            <Label text="Search:" styleClass="filter-label" />
+                            <TextField fx:id="searchField" promptText="Search by name or email..." prefWidth="250" styleClass="search-field" />
+                        </HBox>
+                        
+                        <!-- Type Filter -->
+                        <HBox alignment="CENTER_LEFT" spacing="5">
+                            <Label text="Buyer Type:" styleClass="filter-label" />
+                            <ComboBox fx:id="buyerTypeFilter" prefWidth="150" styleClass="filter-combo" />
+                        </HBox>
+                        
+                        <!-- Status Filter -->
+                        <HBox alignment="CENTER_LEFT" spacing="5">
+                            <Label text="Status:" styleClass="filter-label" />
+                            <ComboBox fx:id="statusFilter" prefWidth="150" styleClass="filter-combo" />
+                        </HBox>
+                        
+                        <Region HBox.hgrow="ALWAYS" />
+                        
+                        <!-- Reset Button -->
+                        <Button fx:id="resetButton" text="Reset Filters" styleClass="reset-button" />
+                    </HBox>
+                </VBox>
+                
+                <!-- Table View -->
+                <VBox styleClass="card-container">
+                    <TableView fx:id="buyerTableView" styleClass="data-table" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="idColumn" text="ID" prefWidth="50" />
+                            <TableColumn fx:id="nameColumn" text="Name" prefWidth="150" />
+                            <TableColumn fx:id="emailColumn" text="Email" prefWidth="200" />
+                            <TableColumn fx:id="phoneColumn" text="Phone" prefWidth="150" />
+                            <TableColumn fx:id="addressColumn" text="Address" prefWidth="250" />
+                            <TableColumn fx:id="carNameColumn" text="Car" prefWidth="150" />
+                            <TableColumn fx:id="actionsColumn" text="Actions" prefWidth="100" />
+                    </columns>
+                    </TableView>
+                    
+                    <!-- Pagination -->
+                    <HBox alignment="CENTER" styleClass="pagination-container">
+                        <padding>
+                            <Insets top="10" bottom="10" />
+                        </padding>
+                        <Pagination fx:id="pagination" pageCount="10" maxPageIndicatorCount="5" styleClass="custom-pagination" />
+                    </HBox>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </VBox>
+</HBox>
