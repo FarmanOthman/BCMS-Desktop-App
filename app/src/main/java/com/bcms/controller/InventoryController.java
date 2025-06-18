@@ -108,16 +108,24 @@ public class InventoryController implements Initializable {
         
         // Customers button
         customersBtn.setOnAction(e -> {
-            setActiveButton(customersBtn);
-            // Navigate to customers view
-            System.out.println("Navigate to Customers");
+            try {
+                setActiveButton(customersBtn);
+                openBuyers();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                showErrorAlert("Navigation Error", "Could not open Buyers", ex.getMessage());
+            }
         });
         
         // Analytics button
         analyticsBtn.setOnAction(e -> {
-            setActiveButton(analyticsBtn);
-            // Navigate to analytics view
-            System.out.println("Navigate to Analytics");
+            try {
+                setActiveButton(analyticsBtn);
+                openAnalytics();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                showErrorAlert("Navigation Error", "Could not open Analytics", ex.getMessage());
+            }
         });
         
         // ADDED: Finance button
@@ -404,6 +412,82 @@ public class InventoryController implements Initializable {
         // Set the scene to the current stage
         currentStage.setScene(scene);
         currentStage.setTitle("Bestun Cars Management System - Sales");
+    }
+    
+    /**
+     * Navigate to the Buyers page
+     */
+    private void openBuyers() throws IOException {
+        // Get the current stage
+        Stage currentStage = (Stage) dashboardBtn.getScene().getWindow();
+        
+        // Load the Buyer FXML
+        URL fxmlUrl = getClass().getResource("/fxml/Buyer.fxml");
+        if (fxmlUrl == null) {
+            System.err.println("ERROR: Cannot find Buyer.fxml. Check your project structure.");
+            throw new IOException("Buyer.fxml not found");
+        }
+        
+        FXMLLoader loader = new FXMLLoader(fxmlUrl);
+        Parent root = loader.load();
+        
+        // Create a new scene
+        Scene scene = new Scene(root, 1400, 900);
+        
+        // Add the CSS file
+        scene.getStylesheets().add(getClass().getResource("/styles/buyer.css").toExternalForm());
+        
+        // Set the controller as user data in the scene for action buttons access
+        scene.setUserData(loader.getController());
+        
+        // Set the scene to the stage
+        currentStage.setScene(scene);
+        currentStage.show();
+    }
+    
+    /**
+     * Navigate to the Analytics page
+     */
+    private void openAnalytics() throws IOException {
+        // Get the current stage
+        Stage currentStage = (Stage) dashboardBtn.getScene().getWindow();
+        
+        // Load the analytics FXML
+        URL fxmlUrl = getClass().getResource("/fxml/Analytics.fxml");
+        if (fxmlUrl == null) {
+            System.err.println("ERROR: Cannot find Analytics.fxml. Check your project structure.");
+            throw new IOException("Analytics.fxml not found");
+        }
+        
+        FXMLLoader loader = new FXMLLoader(fxmlUrl);
+        Parent root = loader.load();
+        
+        // Create a new scene
+        Scene scene = new Scene(root, 1400, 900);
+        
+        // Add the CSS file
+        URL analyticsCssUrl = getClass().getResource("/styles/analytics.css");
+        
+        if (analyticsCssUrl != null) {
+            scene.getStylesheets().add(analyticsCssUrl.toExternalForm());
+        } else {
+            System.err.println("WARNING: analytics.css not found");
+        }
+        
+        // Set the scene to the current stage
+        currentStage.setScene(scene);
+        currentStage.setTitle("Bestun Cars Management System - Analytics");
+    }
+    
+    /**
+     * Show an error alert dialog
+     */
+    private void showErrorAlert(String title, String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
     
     // Action handlers for edit, delete, and view buttons in each row
