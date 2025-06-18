@@ -1,0 +1,222 @@
+/* User Management specific styles to add to dashboard.css */
+
+/* Page headers */
+.user-management-title {
+    -fx-text-fill: white;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+}
+
+.user-management-subtitle {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+/* Filter section */
+.filters-section {
+    -fx-background-color: #2d3447;
+    -fx-background-radius: 12;
+    -fx-padding: 20px;
+}
+
+.filters-section TextField {
+    -fx-background-color: #1a1f2e;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-border-width: 1;
+    -fx-border-color: #3a4155;
+}
+
+.filters-section TextField:focused {
+    -fx-border-color: #4f7cff;
+}
+
+.filters-section ComboBox {
+    -fx-background-color: #1a1f2e;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-border-width: 1;
+    -fx-border-color: #3a4155;
+}
+
+.filters-section ComboBox .list-cell {
+    -fx-text-fill: white;
+    -fx-background-color: #1a1f2e;
+    -fx-padding: 8 10 8 10;
+}
+
+.filters-section ComboBox .list-view {
+    -fx-background-color: #2d3447;
+    -fx-border-color: #3a4155;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 5);
+}
+
+/* Table View for Users */
+.users-table {
+    -fx-background-color: #2d3447;
+    -fx-background-radius: 12;
+    -fx-table-cell-border-color: transparent;
+    -fx-padding: 10;
+}
+
+.users-table .column-header-background {
+    -fx-background-color: #3a4155;
+    -fx-background-radius: 12 12 0 0;
+    -fx-padding: 5 0 5 0;
+}
+
+.users-table .column-header, .users-table .filler {
+    -fx-background-color: transparent;
+    -fx-size: 40px;
+    -fx-border-width: 0 0 0 0;
+}
+
+.users-table .column-header .label {
+    -fx-text-fill: #9ca3af;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 5 10 5 10;
+}
+
+.users-table .table-cell {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 10 10 10 10;
+    -fx-border-color: transparent;
+}
+
+.users-table .table-row-cell {
+    -fx-background-color: #2d3447;
+    -fx-border-color: transparent;
+    -fx-table-cell-border-color: transparent;
+}
+
+.users-table .table-row-cell:odd {
+    -fx-background-color: #333a4c;
+}
+
+.users-table .table-row-cell:selected {
+    -fx-background-color: #4f7cff33;
+    -fx-table-cell-border-color: transparent;
+}
+
+/* Action buttons */
+.action-icon {
+    -fx-background-color: #3a4155;
+    -fx-background-radius: 4;
+    -fx-padding: 5 5 5 5;
+    -fx-min-width: 30px;
+    -fx-min-height: 30px;
+    -fx-max-width: 30px;
+    -fx-max-height: 30px;
+    -fx-cursor: hand;
+}
+
+.action-icon:hover {
+    -fx-background-color: #4a5165;
+}
+
+/* Edit Button Icon */
+.edit-icon {
+    -fx-shape: "M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10";
+    -fx-background-color: white;
+}
+
+/* Delete Button Icon */
+.delete-icon {
+    -fx-shape: "M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0";
+    -fx-background-color: white;
+}
+
+/* User Management specific buttons */
+.add-user-button {
+    -fx-background-color: #4f7cff;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20 10 20;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-cursor: hand;
+    -fx-font-weight: 500;
+}
+
+.add-user-button:hover {
+    -fx-background-color: #3d6aef;
+}
+
+.delete-button {
+    -fx-background-color: #ef4444;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20 10 20;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-cursor: hand;
+    -fx-font-weight: 500;
+}
+
+.delete-button:hover {
+    -fx-background-color: #dc2626;
+}
+
+.reset-button {
+    -fx-background-color: #3a4155;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20 10 20;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-cursor: hand;
+}
+
+.reset-button:hover {
+    -fx-background-color: #4a5165;
+}
+
+/* Status Styling */
+.status-active {
+    -fx-text-fill: #10b981;
+    -fx-font-weight: bold;
+}
+
+.status-inactive {
+    -fx-text-fill: #ef4444;
+    -fx-font-weight: bold;
+}
+
+/* Pagination */
+.pagination {
+    -fx-page-information-visible: false;
+}
+
+.pagination .pagination-control .button {
+    -fx-background-color: #3a4155;
+    -fx-background-radius: 4;
+    -fx-text-fill: white;
+}
+
+.pagination .pagination-control .button:hover {
+    -fx-background-color: #4a5165;
+}
+
+.pagination .pagination-control .number-button {
+    -fx-background-color: #3a4155;
+    -fx-background-radius: 4;
+    -fx-text-fill: white;
+}
+
+.pagination .pagination-control .number-button:hover {
+    -fx-background-color: #4a5165;
+}
+
+.pagination .pagination-control .number-button:selected {
+    -fx-background-color: #4f7cff;
+}
