@@ -163,9 +163,14 @@ public class DashboardController implements Initializable {
         
         // User Management button
         userMgmtBtn.setOnAction(e -> {
-            setActiveButton(userMgmtBtn);
-            // Navigate to user management view
-            System.out.println("Navigate to User Management");
+            try {
+                setActiveButton(userMgmtBtn);
+                openUserManagement();
+                System.out.println("Navigate to User Management");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                showErrorAlert("Navigation Error", "Could not open User Management", ex.getMessage());
+            }
         });
     }
     
@@ -527,5 +532,51 @@ public class DashboardController implements Initializable {
     private void handleManageCustomers() {
         System.out.println("Manage customers clicked");
         // Navigate to customers management
+    }
+    
+    // ADDED: Method to open User Management page
+    private void openUserManagement() throws IOException {
+        // Get the current stage
+        Stage currentStage = (Stage) userMgmtBtn.getScene().getWindow();
+        
+        // Load the user management FXML
+        URL fxmlUrl = getClass().getResource("/fxml/UserManagement.fxml");
+        System.out.println("Looking for UserManagement FXML at: " + fxmlUrl);
+        if (fxmlUrl == null) {
+            System.err.println("ERROR: Cannot find UserManagement.fxml. Check your project structure.");
+            throw new IOException("UserManagement.fxml not found");
+        }
+        
+        FXMLLoader loader = new FXMLLoader(fxmlUrl);
+        Parent root = loader.load();
+        
+        // Create a new scene
+        Scene scene = new Scene(root, 1400, 900);
+        
+        // Store the controller in the scene's userData for action button access
+        UserManagementController controller = loader.getController();
+        scene.setUserData(controller);
+        
+        // Add the CSS files
+        URL dashboardCssUrl = getClass().getResource("/styles/dashboard.css");
+        URL userMgmtCssUrl = getClass().getResource("/styles/usermanagement.css");
+        
+        if (dashboardCssUrl != null) {
+            System.out.println("Found dashboard CSS: " + dashboardCssUrl.toExternalForm());
+            scene.getStylesheets().add(dashboardCssUrl.toExternalForm());
+        } else {
+            System.err.println("WARNING: dashboard.css not found");
+        }
+        
+        if (userMgmtCssUrl != null) {
+            System.out.println("Found user management CSS: " + userMgmtCssUrl.toExternalForm());
+            scene.getStylesheets().add(userMgmtCssUrl.toExternalForm());
+        } else {
+            System.err.println("WARNING: usermanagement.css not found");
+        }
+        
+        // Set the scene to the current stage
+        currentStage.setScene(scene);
+        currentStage.setTitle("Bestun Cars Management System - User Management");
     }
 }

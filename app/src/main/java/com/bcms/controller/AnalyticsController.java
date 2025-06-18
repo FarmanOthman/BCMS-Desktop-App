@@ -52,6 +52,7 @@ public class AnalyticsController implements Initializable {
     @FXML private CategoryAxis xAxis;
     @FXML private NumberAxis yAxis;
     
+    @SuppressWarnings("unused")
     private AnalyticsViewModel viewModel;
     
     @Override
@@ -175,9 +176,7 @@ public class AnalyticsController implements Initializable {
         userMgmtBtn.setOnAction(e -> {
             try {
                 setActiveButton(userMgmtBtn);
-                // When a user management view is created, uncomment this line:
-                // openUserManagement();
-                System.out.println("Navigate to User Management - View not yet implemented");
+                openUserManagement();
             } catch (Exception ex) {
                 ex.printStackTrace();
                 showErrorAlert("Navigation Error", "Could not open User Management view", ex.getMessage());
@@ -537,6 +536,47 @@ public class AnalyticsController implements Initializable {
         // Set the scene to the current stage
         currentStage.setScene(scene);
         currentStage.setTitle("Bestun Cars Management System - Finance");
+    }
+    
+    // Method to open User Management page
+    private void openUserManagement() throws IOException {
+        // Get the current stage
+        Stage currentStage = (Stage) userMgmtBtn.getScene().getWindow();
+        
+        // Load the user management FXML
+        URL fxmlUrl = getClass().getResource("/fxml/UserManagement.fxml");
+        if (fxmlUrl == null) {
+            throw new IOException("UserManagement.fxml not found");
+        }
+        
+        FXMLLoader loader = new FXMLLoader(fxmlUrl);
+        Parent root = loader.load();
+        
+        // Create a new scene
+        Scene scene = new Scene(root, 1400, 900);
+        
+        // Store the controller in the scene's userData for action button access
+        UserManagementController controller = loader.getController();
+        scene.setUserData(controller);
+        
+        // Add the CSS files
+        URL dashboardCssUrl = getClass().getResource("/styles/dashboard.css");
+        if (dashboardCssUrl != null) {
+            scene.getStylesheets().add(dashboardCssUrl.toExternalForm());
+        } else {
+            System.err.println("WARNING: dashboard.css not found");
+        }
+        
+        URL userManagementCssUrl = getClass().getResource("/styles/usermanagement.css");
+        if (userManagementCssUrl != null) {
+            scene.getStylesheets().add(userManagementCssUrl.toExternalForm());
+        } else {
+            System.err.println("WARNING: usermanagement.css not found");
+        }
+        
+        // Set the scene to the stage and show
+        currentStage.setScene(scene);
+        currentStage.setTitle("Bestun Cars Management System - User Management");
     }
     
     // Helper methods for showing alerts
