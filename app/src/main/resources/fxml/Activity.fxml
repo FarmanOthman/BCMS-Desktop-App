@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<BorderPane prefHeight="900.0" prefWidth="1400.0" stylesheets="@../styles/activity.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bcms.controller.ActivityController">
+    <left>
+        <!-- Left Sidebar Navigation -->
+        <VBox fx:id="sidebar" styleClass="sidebar" prefWidth="240.0" BorderPane.alignment="CENTER">
+            <children>
+                <!-- Logo at the top -->
+                <VBox alignment="CENTER" prefHeight="120.0" styleClass="sidebar-header">
+                    <Label styleClass="brand-title" text="Bestun Cars" />
+                    <Label styleClass="brand-subtitle" text="Management System" />
+                </VBox>
+                
+                <!-- Navigation Buttons -->
+                <VBox spacing="5" VBox.vgrow="ALWAYS">
+                    <padding>
+                        <Insets top="20.0" right="10.0" bottom="10.0" left="10.0" />
+                    </padding>
+                    
+                    <!-- Dashboard -->
+                    <Button fx:id="dashboardBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Dashboard">
+                        <graphic>
+                            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../images/Home.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    
+                    <!-- Inventory -->
+                    <Button fx:id="inventoryBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Inventory">
+                        <graphic>
+                            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../images/Car Rental.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                
+                    <!-- Repairs -->
+                    <Button fx:id="repairsBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Repairs">
+                        <graphic>
+                            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../images/Service.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    
+                    <!-- Sales -->
+                    <Button fx:id="salesBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Sales">
+                        <graphic>
+                            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../images/Total Sales.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    
+                    <!-- Customers -->
+                    <Button fx:id="customersBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Customers">
+                        <graphic>
+                            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../images/User Groups.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                
+                    <!-- Analytics -->
+                    <Button fx:id="analyticsBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Analytics">
+                        <graphic>
+                            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../images/Graph.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    
+                    <!-- Finance -->
+                    <Button fx:id="financeBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Finance">
+                        <graphic>
+                            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../images/Money.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                
+                    <!-- Activity (active) -->
+                    <Button fx:id="activityBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button, active" text="Activity">
+                        <graphic>
+                            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../images/hugeicons_activity-03.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    
+                    <!-- Settings -->
+                    <Button fx:id="settingsBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Settings">
+                        <graphic>
+                            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../images/Settings.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    
+                    <!-- User Management -->
+                    <Button fx:id="userMgmtBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Users">
+                        <graphic>
+                            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../images/User Settings.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                </VBox>
+            </children>
+            <padding>
+                <Insets bottom="20.0" />
+            </padding>
+        </VBox>
+    </left>
+    <center>
+        <!-- Main Content Area -->
+        <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="main-content">
+            <content>
+                <VBox spacing="20.0" VBox.vgrow="ALWAYS">
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
+                    <children>
+                        <!-- Page Title -->
+                        <HBox styleClass="page-header" alignment="CENTER_LEFT">
+                            <children>
+                                <VBox>
+                                    <children>
+                                        <Label fx:id="activityTitle" styleClass="page-title" text="System Activity Log" />
+                                        <Label fx:id="activitySubtitle" styleClass="page-subtitle" text="Monitor and track all system activities and user actions" />
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                        
+                        <!-- Search and Filters -->
+                        <HBox spacing="15.0" styleClass="filter-bar" alignment="CENTER_LEFT">
+                            <children>
+                                <!-- Search Field -->
+                                <TextField fx:id="searchField" promptText="Search activities..." styleClass="search-field" HBox.hgrow="ALWAYS" />
+                                
+                                <!-- Severity Filter -->
+                                <ComboBox fx:id="severityFilter" prefWidth="150.0" promptText="All Severities" />
+                                
+                                <!-- User Filter -->
+                                <ComboBox fx:id="userFilter" prefWidth="180.0" promptText="All Users" />
+                                
+                                <!-- Time Filter -->
+                                <ComboBox fx:id="timeFilter" prefWidth="180.0" promptText="Last 7 Days" />
+                                
+                                <!-- Refresh Button -->
+                                <Button fx:id="refreshButton" mnemonicParsing="false" styleClass="action-button" text="Refresh">
+                                    <graphic>
+                                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/icons/refresh.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                
+                                <!-- Auto-refresh Toggle -->
+                                <Button fx:id="autoRefreshButton" mnemonicParsing="false" styleClass="action-button" text="Auto-refresh: Off" />
+                            </children>
+                        </HBox>
+                        
+                        <!-- Summary Cards -->
+                        <HBox spacing="15.0" VBox.vgrow="NEVER" minHeight="100.0">
+                            <children>
+                                <!-- Today's Activities Card -->
+                                <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <Label styleClass="stat-title" text="Today's Activities" />
+                                        <Label fx:id="todayActivitiesValue" styleClass="stat-value" text="247" />
+                                        <Label fx:id="activityChangeValue" styleClass="stat-trend" text="+18% from yesterday" />
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </padding>
+                                </VBox>
+                                
+                                <!-- Critical Events Card -->
+                                <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
+                                    <padding>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </padding>
+                                    <children>
+                                        <Label styleClass="stat-title" text="Critical Events" />
+                                        <Label fx:id="criticalEventsValue" styleClass="stat-value, status-warning" text="3" />
+                                        <Label fx:id="criticalEventsDetail" styleClass="stat-trend" text="Requires attention" />
+                                    </children>
+                                </VBox>
+                                
+                                <!-- Active Users Card -->
+                                <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
+                                    <padding>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </padding>
+                                    <children>
+                                        <Label styleClass="stat-title" text="Active Users" />
+                                        <Label fx:id="activeUsersValue" styleClass="stat-value" text="12" />
+                                        <Label fx:id="activeUsersDetail" styleClass="stat-trend" text="Currently online" />
+                                    </children>
+                                </VBox>
+                                
+                                <!-- System Health Card -->
+                                <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
+                                    <padding>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </padding>
+                                    <children>
+                                        <Label styleClass="stat-title" text="System Health" />
+                                        <Label fx:id="systemStatusValue" styleClass="stat-value, status-good" text="GOOD" />
+                                        <Label fx:id="systemStatusDetail" styleClass="stat-trend" text="All systems operational" />
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                        
+                        <!-- Activity Log Table -->
+                        <VBox styleClass="content-section" VBox.vgrow="ALWAYS">
+                            <children>
+                                <!-- Section Header -->
+                                <HBox alignment="CENTER_LEFT" styleClass="section-header">
+                                    <children>
+                                        <Label styleClass="section-title" text="Activity Log" />
+                                        <Region HBox.hgrow="ALWAYS" />
+                                        <Button fx:id="exportButton" mnemonicParsing="false" styleClass="action-button" text="Export Data" />
+                                    </children>
+                                </HBox>
+                                
+                                <!-- Table -->
+                                <TableView fx:id="activityTableView" VBox.vgrow="ALWAYS" styleClass="data-table">
+                                    <columns>
+                                        <TableColumn fx:id="idColumn" prefWidth="70.0" text="ID" />
+                                        <TableColumn fx:id="severityColumn" prefWidth="70.0" text="Severity" />
+                                        <TableColumn fx:id="actionColumn" prefWidth="150.0" text="Action" />
+                                        <TableColumn fx:id="detailsColumn" prefWidth="300.0" text="Details" />
+                                        <TableColumn fx:id="userColumn" prefWidth="150.0" text="User" />
+                                        <TableColumn fx:id="timestampColumn" prefWidth="200.0" text="Timestamp" />
+                                        <TableColumn fx:id="ipAddressColumn" prefWidth="120.0" text="IP Address" />
+                                    </columns>
+                                    <columnResizePolicy>
+                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                    </columnResizePolicy>
+                                </TableView>
+                                
+                                <!-- Pagination -->
+                                <HBox alignment="CENTER" styleClass="pagination-container" spacing="10.0">
+                                    <padding>
+                                        <Insets top="10.0" right="0.0" bottom="0.0" left="0.0" />
+                                    </padding>
+                                    <Pagination fx:id="pagination" maxPageIndicatorCount="10" pageCount="10" />
+                                    <ComboBox fx:id="rowsPerPageComboBox" prefWidth="120.0" promptText="10 per page" />
+                                </HBox>
+                            </children>
+                            <padding>
+                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                            </padding>
+                        </VBox>
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+</BorderPane>

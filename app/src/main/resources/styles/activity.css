@@ -1,0 +1,421 @@
+/* Activity-specific styles to add to dashboard.css */
+@import "dashboard.css";
+
+/* Content Section */
+.content-section {
+    -fx-background-color: #2d3447;
+    background-color: #2d3447;
+    -fx-background-radius: 12;
+    background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);
+    -fx-padding: 15;
+    padding: 15;
+}
+
+/* Section headers */
+.section-header {
+    -fx-padding: 0 0 15 0;
+    padding: 0 0 15 0;
+    -fx-spacing: 10;
+}
+
+.section-title {
+    -fx-font-size: 18px;
+    font-size: 18px;
+    -fx-font-weight: bold;
+    font-weight: bold;
+    -fx-text-fill: white;
+    color: white;
+}
+
+/* Action buttons */
+.action-button {
+    -fx-background-color: #4f7cff;
+    background-color: #4f7cff;
+    -fx-text-fill: white;
+    color: white;
+    -fx-font-size: 14px;
+    font-size: 14px;
+    -fx-padding: 7 15;
+    padding: 7px 15px;
+    -fx-background-radius: 6;
+    background-radius: 6px;
+    -fx-cursor: hand;
+    cursor: pointer;
+}
+
+.action-button:hover {
+    -fx-background-color: #3d6aef;
+    background-color: #3d6aef;
+}
+
+/* Page headers */
+.activity-title {
+    -fx-text-fill: white;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+}
+
+.activity-subtitle {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+/* Search and filters section */
+.filters-section {
+    -fx-background-color: #2d3447;
+    -fx-background-radius: 12;
+    -fx-padding: 20px;
+    -fx-spacing: 15;
+}
+
+.search-field {
+    -fx-background-color: #1a1f2e;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-border-width: 1;
+    -fx-border-color: #3a4155;
+}
+
+.search-field:focused {
+    -fx-border-color: #4f7cff;
+}
+
+.filters-section ComboBox {
+    -fx-background-color: #1a1f2e;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-border-width: 1;
+    -fx-border-color: #3a4155;
+}
+
+.filters-section ComboBox .list-cell {
+    -fx-text-fill: white;
+    -fx-background-color: #1a1f2e;
+    -fx-padding: 8 10 8 10;
+}
+
+.filters-section ComboBox .list-view {
+    -fx-background-color: #2d3447;
+    -fx-border-color: #3a4155;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 5);
+}
+
+.filters-section ComboBox .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.filters-section ComboBox .arrow {
+    -fx-background-color: white;
+}
+
+/* Refresh button */
+.refresh-button {
+    -fx-background-color: #4f7cff;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20 10 20;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-cursor: hand;
+    -fx-font-weight: 500;
+}
+
+.refresh-button:hover {
+    -fx-background-color: #3d6aef;
+}
+
+/* Auto-refresh toggle button */
+.auto-refresh-button {
+    -fx-background-color: #3a4155;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20 10 20;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-cursor: hand;
+}
+
+.auto-refresh-button:hover {
+    -fx-background-color: #4a5165;
+}
+
+.auto-refresh-button.active {
+    -fx-background-color: #10b981;
+}
+
+/* Stats cards */
+.stat-card {
+    -fx-background-color: #2d3447;
+    background-color: #2d3447;
+    -fx-background-radius: 12;
+    -fx-padding: 20px;
+    padding: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);
+    -fx-min-width: 200;
+    min-width: 200px;
+}
+
+.stat-title {
+    -fx-text-fill: #9ca3af;
+    color: #9ca3af;
+    -fx-font-size: 14px;
+    font-size: 14px;
+    -fx-font-weight: 600;
+    font-weight: 600;
+}
+
+.stat-value {
+    -fx-text-fill: white;
+    color: white;
+    -fx-font-size: 28px;
+    font-size: 28px;
+    -fx-font-weight: bold;
+    font-weight: bold;
+    -fx-padding: 5 0 3 0;
+    padding: 5px 0 3px 0;
+}
+
+.stat-trend {
+    -fx-text-fill: #9ca3af;
+    color: #9ca3af;
+    -fx-font-size: 12px;
+    font-size: 12px;
+}
+
+.stat-trend.positive {
+    -fx-text-fill: #10b981;
+    color: #10b981;
+}
+
+.stat-trend.negative {
+    -fx-text-fill: #ef4444;
+    color: #ef4444;
+}
+
+/* For backward compatibility */
+.summary-card {
+    -fx-background-color: #2d3447;
+    -fx-background-radius: 12;
+    -fx-padding: 20px;
+}
+
+.summary-title {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.summary-value {
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.summary-detail {
+    -fx-text-fill: #9ca3af;
+    -fx-font-size: 12px;
+}
+
+/* Status indicator colors */
+.status-good {
+    -fx-text-fill: #10b981;
+    -fx-font-weight: bold;
+}
+
+.status-warning {
+    -fx-text-fill: #f59e0b;
+    -fx-font-weight: bold;
+}
+
+.status-error {
+    -fx-text-fill: #ef4444;
+    -fx-font-weight: bold;
+}
+
+/* Data tables */
+.data-table {
+    -fx-background-color: #2d3447;
+    background-color: #2d3447;
+    -fx-table-cell-border-color: transparent;
+    -fx-padding: 0;
+    padding: 0;
+}
+
+.data-table .placeholder {
+    -fx-background-color: #2d3447;
+    background-color: #2d3447;
+}
+
+.data-table .column-header-background {
+    -fx-background-color: #3a4155;
+    background-color: #3a4155;
+    -fx-background-radius: 6 6 0 0;
+    -fx-padding: 5 0 5 0;
+    padding: 5px 0 5px 0;
+}
+
+.data-table .column-header, .data-table .filler {
+    -fx-background-color: transparent;
+    background-color: transparent;
+    -fx-size: 40px;
+    -fx-border-width: 0;
+    border-width: 0;
+}
+
+.data-table .column-header .label {
+    -fx-text-fill: #9ca3af;
+    color: #9ca3af;
+    -fx-font-size: 12px;
+    font-size: 12px;
+    -fx-font-weight: bold;
+    font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 8 10;
+    padding: 8px 10px;
+}
+
+.data-table .table-cell {
+    -fx-text-fill: white;
+    color: white;
+    -fx-font-size: 14px;
+    font-size: 14px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 10;
+    padding: 10px;
+    -fx-border-color: transparent;
+    border-color: transparent;
+}
+
+.data-table .table-row-cell {
+    -fx-background-color: #2d3447;
+    background-color: #2d3447;
+    -fx-border-color: transparent;
+    border-color: transparent;
+    -fx-table-cell-border-color: transparent;
+}
+
+.data-table .table-row-cell:odd {
+    -fx-background-color: #333a4c;
+    background-color: #333a4c;
+}
+
+.data-table .table-row-cell:selected {
+    -fx-background-color: rgba(79, 124, 255, 0.2);
+    background-color: rgba(79, 124, 255, 0.2);
+    -fx-table-cell-border-color: transparent;
+}
+
+/* Keep the old styles for backward compatibility */
+.activity-table {
+    -fx-background-color: #2d3447;
+    background-color: #2d3447;
+    -fx-background-radius: 12;
+    -fx-table-cell-border-color: transparent;
+    -fx-padding: 10;
+    padding: 10px;
+}
+
+/* Severity icons */
+.severity-icon {
+    -fx-min-width: 24px;
+    min-width: 24px;
+    -fx-min-height: 24px;
+    min-height: 24px;
+    -fx-max-width: 24px;
+    max-width: 24px;
+    -fx-max-height: 24px;
+    max-height: 24px;
+    -fx-background-radius: 12;
+    border-radius: 12px;
+}
+
+.severity-info {
+    -fx-background-color: #3b82f6;
+    background-color: #3b82f6;
+}
+
+.severity-warning {
+    -fx-background-color: #f59e0b;
+    background-color: #f59e0b;
+}
+
+.severity-error {
+    -fx-background-color: #ef4444;
+    background-color: #ef4444;
+}
+
+.severity-success {
+    -fx-background-color: #10b981;
+    background-color: #10b981;
+}
+
+/* Pagination */
+.pagination {
+    -fx-page-information-visible: false;
+}
+
+.pagination-container {
+    -fx-spacing: 10;
+    spacing: 10px;
+    -fx-padding: 10 0 0 0; 
+    padding: 10px 0 0 0;
+}
+
+.pagination .pagination-control .button {
+    -fx-background-color: #3a4155;
+    background-color: #3a4155;
+    -fx-background-radius: 4;
+    -fx-text-fill: white;
+    color: white;
+    -fx-cursor: hand;
+    cursor: pointer;
+}
+
+.pagination .pagination-control .button:hover {
+    -fx-background-color: #4a5165;
+    background-color: #4a5165;
+}
+
+.pagination .pagination-control .number-button {
+    -fx-background-color: #3a4155;
+    background-color: #3a4155;
+    -fx-background-radius: 4;
+    -fx-text-fill: white;
+    color: white;
+}
+
+.pagination .pagination-control .number-button:hover {
+    -fx-background-color: #4a5165;
+    background-color: #4a5165;
+}
+
+.pagination .pagination-control .number-button:selected {
+    -fx-background-color: #4f7cff;
+    background-color: #4f7cff;
+}
+
+/* ComboBox for rows per page */
+.pagination-container .combo-box {
+    -fx-background-color: #3a4155;
+    background-color: #3a4155;
+    -fx-text-fill: white;
+    color: white;
+    -fx-font-size: 12px;
+    font-size: 12px;
+    -fx-background-radius: 4;
+    -fx-border-radius: 0;
+}
+
+.pagination-container .combo-box .list-cell {
+    -fx-text-fill: white;
+    color: white;
+    -fx-background-color: #3a4155;
+    background-color: #3a4155;
+}
