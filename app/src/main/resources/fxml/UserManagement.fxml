@@ -103,6 +103,17 @@
                     </graphic>
                 </Button>
                 
+                <!-- Activity Button -->
+                <Button fx:id="activityBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Activity">
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/hugeicons_activity-03.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                
                 <!-- User Management Button -->
                 <Button fx:id="userMgmtBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button, active" text="User Management">
                     <graphic>
