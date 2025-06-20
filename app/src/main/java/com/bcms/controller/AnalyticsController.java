@@ -150,10 +150,8 @@ public class AnalyticsController implements Initializable {
         activityBtn.setOnAction(e -> {
             try {
                 setActiveButton(activityBtn);
-                // When an activity view is created, uncomment this line:
-                // openActivity();
-                System.out.println("Navigate to Activity - View not yet implemented");
-            } catch (Exception ex) {
+                openActivity();
+            } catch (IOException ex) {
                 ex.printStackTrace();
                 showErrorAlert("Navigation Error", "Could not open Activity view", ex.getMessage());
             }
@@ -536,6 +534,47 @@ public class AnalyticsController implements Initializable {
         // Set the scene to the current stage
         currentStage.setScene(scene);
         currentStage.setTitle("Bestun Cars Management System - Finance");
+    }
+    
+    /**
+     * Navigate to the Activity page
+     */
+    private void openActivity() throws IOException {
+        // Get the current stage
+        Stage currentStage = (Stage) dashboardBtn.getScene().getWindow();
+        
+        // Load the Activity FXML
+        URL fxmlUrl = getClass().getResource("/fxml/Activity.fxml");
+        if (fxmlUrl == null) {
+            System.err.println("ERROR: Cannot find Activity.fxml. Check your project structure.");
+            throw new IOException("Activity.fxml not found");
+        }
+        
+        FXMLLoader loader = new FXMLLoader(fxmlUrl);
+        Parent root = loader.load();
+        
+        // Create a new scene
+        Scene scene = new Scene(root, 1400, 900);
+        
+        // Add the CSS files
+        URL dashboardCssUrl = getClass().getResource("/styles/dashboard.css");
+        URL activityCssUrl = getClass().getResource("/styles/activity.css");
+        
+        if (dashboardCssUrl != null) {
+            scene.getStylesheets().add(dashboardCssUrl.toExternalForm());
+        } else {
+            System.err.println("WARNING: dashboard.css not found");
+        }
+        
+        if (activityCssUrl != null) {
+            scene.getStylesheets().add(activityCssUrl.toExternalForm());
+        } else {
+            System.err.println("WARNING: activity.css not found");
+        }
+        
+        // Set the scene to the current stage
+        currentStage.setScene(scene);
+        currentStage.setTitle("Bestun Cars Management System - Activity Log");
     }
     
     // Method to open User Management page
