@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.SVGPath?>
+
+<DialogPane stylesheets="@../styles/editcardialog.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bcms.controller.EditCarDialogController">
+    <header>
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <Label styleClass="dialog-title" text="Edit Car Details" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button fx:id="closeButton" mnemonicParsing="false" styleClass="dialog-close-button" onAction="#handleClose">
+                <graphic>
+                    <Region styleClass="close-icon" />
+                </graphic>
+            </Button>
+        </HBox>
+    </header>
+    <content>
+        <VBox spacing="20">
+            <!-- Make and Model -->
+            <GridPane hgap="20" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <children>
+                    <!-- Make -->
+                    <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <Label styleClass="field-label" text="Make" />
+                        <TextField fx:id="makeField" promptText="Enter car make" text="Toyota" />
+                    </VBox>
+                    
+                    <!-- Model -->
+                    <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <Label styleClass="field-label" text="Model" />
+                        <TextField fx:id="modelField" promptText="Enter car model" text="Corolla" />
+                    </VBox>
+                    
+                    <!-- Year -->
+                    <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <Label styleClass="field-label" text="Year" />
+                        <ComboBox fx:id="yearComboBox" editable="false" prefWidth="150.0" promptText="Select year" value="2023" />
+                    </VBox>
+                    
+                    <!-- Price -->
+                    <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Label styleClass="field-label" text="Price" />
+                        <TextField fx:id="priceField" promptText="Enter price" text="24,999.99" />
+                    </VBox>
+                </children>
+            </GridPane>
+            
+            <!-- Status -->
+            <VBox spacing="5">
+                <Label styleClass="field-label" text="Status" />
+                <ComboBox fx:id="statusComboBox" styleClass="status-combo" prefWidth="150.0" promptText="Select status" value="Under Repair" />
+            </VBox>
+            
+            <!-- VIN -->
+            <VBox spacing="5">
+                <Label styleClass="field-label" text="VIN" />
+                <TextField fx:id="vinField" promptText="Enter vehicle identification number" text="VIN1234567890ABCDE" />
+            </VBox>
+            
+            <!-- Notes/Specs -->
+            <VBox spacing="5">
+                <Label styleClass="field-label" text="Notes / Specs" />
+                <TextArea fx:id="notesTextArea" prefHeight="100.0" promptText="Enter vehicle notes or specifications" text="Engine replaced in 2022, new tires installed" wrapText="true" />
+            </VBox>
+            
+            <!-- Repair Parts -->
+            <VBox spacing="10">
+                <Label styleClass="field-label" text="Repair Parts" />
+                
+                <!-- Existing repair parts -->
+                <VBox spacing="5" fx:id="repairPartsContainer">
+                    <HBox styleClass="repair-part-item">
+                        <Label text="Engine Oil Replacement - " />
+                        <Label styleClass="repair-cost" text="120.00" />
+                    </HBox>
+                    
+                    <HBox styleClass="repair-part-item">
+                        <Label text="Brake Pad Change - " />
+                        <Label styleClass="repair-cost" text="85.50" />
+                    </HBox>
+                </VBox>
+                
+                <!-- Add new repair part -->
+                <HBox spacing="10" styleClass="add-repair-section">
+                    <VBox spacing="5" HBox.hgrow="ALWAYS">
+                        <Label styleClass="field-label" text="Repair Name" />
+                        <TextField fx:id="repairNameField" promptText="Enter repair description" />
+                    </VBox>
+                    
+                    <VBox spacing="5">
+                        <Label styleClass="field-label" text="Cost" />
+                        <TextField fx:id="repairCostField" prefWidth="100" promptText="0.00" />
+                    </VBox>
+                    
+                    <VBox alignment="BOTTOM_CENTER">
+                        <Button fx:id="addRepairButton" mnemonicParsing="false" styleClass="add-button" text="Add" onAction="#handleAddRepair" />
+                    </VBox>
+                </HBox>
+            </VBox>
+            
+            <!-- Buttons: Cancel and Update -->
+            <HBox alignment="CENTER_RIGHT" spacing="10">
+                <Button fx:id="cancelButton" mnemonicParsing="false" styleClass="cancel-button" text="Cancel" onAction="#handleCancel" />
+                <Button fx:id="updateButton" mnemonicParsing="false" styleClass="update-button" text="Update" onAction="#handleUpdate" />
+            </HBox>
+            
+            <!-- Car Images -->
+            <VBox spacing="10">
+                <Label styleClass="field-label" text="Car Images (3/10)" />
+                
+                <HBox spacing="10" styleClass="images-section">
+                    <!-- Image 1 -->
+                    <StackPane styleClass="image-box">
+                        <Label styleClass="image-number" text="1" />
+                    </StackPane>
+                    
+                    <!-- Image 2 -->
+                    <StackPane styleClass="image-box">
+                        <Label styleClass="image-number" text="2" />
+                    </StackPane>
+                    
+                    <!-- Image 3 -->
+                    <StackPane styleClass="image-box">
+                        <Label styleClass="image-number" text="3" />
+                    </StackPane>
+                    
+                    <!-- Add image button -->
+                    <StackPane styleClass="add-image-box" fx:id="addImageBox" onMouseClicked="#handleAddImage">
+                        <Region styleClass="add-image-icon" />
+                    </StackPane>
+                    
+                    <!-- Upload multiple button -->
+                    <Button fx:id="uploadMultipleButton" mnemonicParsing="false" styleClass="upload-multiple-button" text="Upload Multiple" onAction="#handleUploadMultiple" />
+                </HBox>
+            </VBox>
+        </VBox>
+    </content>
+</DialogPane>

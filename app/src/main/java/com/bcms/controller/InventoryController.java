@@ -1,5 +1,6 @@
 package com.bcms.controller;
 
+import com.bcms.model.Car;
 import com.bcms.viewmodel.InventoryViewModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -56,6 +57,9 @@ public class InventoryController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         viewModel = new InventoryViewModel();
+        
+        // Set the handler for edit car actions
+        viewModel.setEditCarHandler(this::handleEditCar);
         
         setupNavigationHandlers();
         setupFilters();
@@ -314,6 +318,15 @@ public class InventoryController implements Initializable {
         carTableView.setItems(filteredData);
     }
     
+    /**
+     * Refresh the table view after changes.
+     */
+    private void refreshTableView() {
+        // In a real application, this would fetch fresh data from your data source
+        // For now, we'll just simulate a refresh by using the current mock data
+        refreshTable();
+    }
+    
     private void openDashboard() throws IOException {
         // Get the current stage
         Stage currentStage = (Stage) dashboardBtn.getScene().getWindow();
@@ -543,7 +556,93 @@ public class InventoryController implements Initializable {
     @FXML
     private void handleEditCar(String carId) {
         System.out.println("Edit car with ID: " + carId);
-        // Open edit dialog
+        try {
+            // Find the car to edit
+            InventoryViewModel.CarItem selectedCar = null;
+            for (InventoryViewModel.CarItem car : carTableView.getItems()) {
+                if (car.getId().equals(carId)) {
+                    selectedCar = car;
+                    break;
+                }
+            }
+            
+            if (selectedCar == null) {
+                System.err.println("Car with ID " + carId + " not found");
+                showErrorAlert("Error", "Car Not Found", "The selected car (ID: " + carId + ") could not be found.");
+                return;
+            }
+            
+            // Load the Edit Car Dialog FXML
+            URL fxmlUrl = getClass().getResource("/fxml/EditCarDialog.fxml");
+            if (fxmlUrl == null) {
+                System.err.println("Could not find EditCarDialog.fxml");
+                showErrorAlert("Error", "Resource Not Found", "The EditCarDialog.fxml file could not be found.");
+                return;
+            }
+            
+            FXMLLoader loader = new FXMLLoader(fxmlUrl);
+            Parent dialogRoot;
+            
+            try {
+                dialogRoot = loader.load();
+            } catch (Exception e) {
+                System.err.println("Error loading EditCarDialog.fxml: " + e.getMessage());
+                e.printStackTrace();
+                showErrorAlert("Error", "Dialog Load Error", 
+                               "There was an error loading the Edit Car dialog: " + e.getMessage());
+                return;
+            }
+            
+            // Get the controller and set the car data
+            EditCarDialogController controller = loader.getController();
+            
+            // Create a dummy Car object with data from the CarItem for demonstration
+            // In a real app, you'd fetch the complete car data from your data service
+            Car carToEdit = new Car();
+            carToEdit.setId(selectedCar.getId());
+            carToEdit.setMake(selectedCar.getVehicle().split(" ")[0]);  // Assuming "Make Model"
+            
+            // Handle the model name safely in case there's no space in the vehicle string
+            String[] vehicleParts = selectedCar.getVehicle().split(" ", 2);
+            String modelName = vehicleParts.length > 1 ? vehicleParts[1] : "";
+            carToEdit.setModel(modelName);
+            
+            carToEdit.setYear(selectedCar.getYear());
+            carToEdit.setPrice(selectedCar.getPrice());
+            carToEdit.setStatus(selectedCar.getStatus());
+            carToEdit.setVin(selectedCar.getVin());
+            
+            // Set the car to edit in the controller
+            controller.setCar(carToEdit);
+            
+            // Create and configure the dialog stage
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edit Car");
+            dialogStage.initOwner(carTableView.getScene().getWindow());
+            dialogStage.initModality(javafx.stage.Modality.APPLICATION_MODAL); // Block input to other windows
+            dialogStage.setResizable(false); // Prevent resizing
+            
+            // Set up the scene with proper styling
+            Scene scene = new Scene(dialogRoot);
+            scene.getStylesheets().add(getClass().getResource("/styles/editcardialog.css").toExternalForm());
+            dialogStage.setScene(scene);
+            
+            // Show the dialog and wait for it to close
+            dialogStage.showAndWait();
+            
+            // Check if changes should be committed
+            if (controller.isCommitChanges()) {
+                Car updatedCar = controller.getUpdatedCar();
+                System.out.println("Car updated: " + updatedCar.getMake() + " " + updatedCar.getModel());
+                // In a real application, you would save the changes to your data source
+                
+                // Update the table view
+                refreshTableView();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            showErrorAlert("Error", "Could not open Edit Car dialog", e.getMessage());
+        }
     }
     
     @FXML

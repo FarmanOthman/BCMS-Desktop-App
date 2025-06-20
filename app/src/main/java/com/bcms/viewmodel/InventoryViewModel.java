@@ -13,6 +13,7 @@ import java.text.NumberFormat;
 import java.util.Currency;
 import java.util.Locale;
 import java.util.stream.Collectors;
+import java.util.function.Consumer;
 
 /**
  * ViewModel for the Inventory screen that handles the business logic
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 public class InventoryViewModel {
     
     private final ObservableList<CarItem> allCars = FXCollections.observableArrayList();
+    private Consumer<String> editCarHandler;
     
     /**
      * Initialize the ViewModel with sample data.
@@ -28,6 +30,19 @@ public class InventoryViewModel {
      */
     public InventoryViewModel() {
         loadSampleData();
+    }
+    
+    /**
+     * Set the handler for edit car action.
+     * @param handler A handler that takes a car ID as parameter
+     */
+    public void setEditCarHandler(Consumer<String> handler) {
+        this.editCarHandler = handler;
+        
+        // Update existing action buttons
+        for (CarItem car : allCars) {
+            car.updateEditAction(handler);
+        }
     }
     
     /**
@@ -48,50 +63,54 @@ public class InventoryViewModel {
         
         allCars.add(new CarItem(
             "#141", 
-            "Tesla Model 3 Performance", 
+            "Mercedes-Benz G Class", 
             2023, 
-            42500.00, 
+            124500.00, 
             "Sold", 
-            "5YJ3E1EA...", 
-            "1 week ago"
-        ));
-        
-        allCars.add(new CarItem(
-            "#140", 
-            "Ford F-150 Raptor", 
-            2021, 
-            38200.00, 
-            "In Repair", 
-            "1FTFW1E5...", 
+            "WDC4671...", 
             "3 days ago"
         ));
         
         allCars.add(new CarItem(
-            "#139", 
-            "Toyota Camry Hybrid LE", 
+            "#140", 
+            "Audi Q7 Premium", 
             2022, 
-            27800.00, 
+            62800.00, 
             "Available", 
-            "4T1B11HK...", 
+            "WAU4DAG...", 
+            "4 days ago"
+        ));
+        
+        allCars.add(new CarItem(
+            "#139", 
+            "Tesla Model Y", 
+            2023, 
+            52990.00, 
+            "In Repair", 
+            "7SAY123...", 
             "5 days ago"
         ));
         
         allCars.add(new CarItem(
             "#138", 
-            "Honda Civic Type R", 
-            2023, 
-            24300.00, 
-            "Sold", 
-            "19XFC2F5...", 
+            "Lexus RX 350", 
+            2021, 
+            47500.00, 
+            "Available", 
+            "JTJDZ5B...", 
             "1 week ago"
         ));
     }
     
     /**
-     * Gets a filtered list of cars based on search criteria and filters
+     * Get filtered cars based on search text, status, and year range.
+     * 
+     * @param searchText Text to search for in vehicle name or VIN
+     * @param statusFilter Status filter or null for all
+     * @param yearRange Year range filter or null for all
+     * @return Filtered list of cars
      */
     public ObservableList<CarItem> getFilteredCars(String searchText, String statusFilter, String yearRange) {
-        // If no filters are applied, return all cars
         if ((searchText == null || searchText.isEmpty()) && 
             (statusFilter == null || statusFilter.equals("All Statuses")) && 
             (yearRange == null || yearRange.equals("All Years"))) {
@@ -148,6 +167,7 @@ public class InventoryViewModel {
         private final StringProperty vin = new SimpleStringProperty();
         private final StringProperty added = new SimpleStringProperty();
         private final ObjectProperty<HBox> actions = new SimpleObjectProperty<>();
+        private Button editBtn;
         
         public CarItem(String id, String vehicle, int year, double price, String status, String vin, String added) {
             this.id.set(id);
@@ -163,12 +183,21 @@ public class InventoryViewModel {
             this.actions.set(actionBox);
         }
         
+        /**
+         * Update the edit button action.
+         */
+        public void updateEditAction(Consumer<String> handler) {
+            if (editBtn != null && handler != null) {
+                editBtn.setOnAction(e -> handler.accept(getId()));
+            }
+        }
+        
         private HBox createActionButtons(String carId) {
             HBox hbox = new HBox(5); // 5 is the spacing
             hbox.setAlignment(Pos.CENTER);
             
             // Edit button
-            Button editBtn = new Button();
+            editBtn = new Button();
             editBtn.getStyleClass().add("action-icon");
             editBtn.setTooltip(new Tooltip("Edit"));
             editBtn.setOnAction(e -> System.out.println("Edit car: " + carId));
