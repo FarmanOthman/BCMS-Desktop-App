@@ -93,9 +93,13 @@ public class FinanceController implements Initializable {
         
         // Repairs button
         repairsBtn.setOnAction(e -> {
-            setActiveButton(repairsBtn);
-            // Navigate to repairs view
-            System.out.println("Navigate to Repairs");
+            try {
+                setActiveButton(repairsBtn);
+                openRepairsService();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                showErrorAlert("Navigation Error", "Could not open Repairs & Service", ex.getMessage());
+            }
         });
         
         // Sales button
@@ -666,5 +670,30 @@ public class FinanceController implements Initializable {
         // Set the scene to the current stage
         currentStage.setScene(scene);
         currentStage.setTitle("Bestun Cars Management System - User Management");
+    }
+    
+    /**
+     * Navigate to the Repairs & Service page
+     */
+    private void openRepairsService() throws IOException {
+        // Get the current stage
+        Stage currentStage = (Stage) repairsBtn.getScene().getWindow();
+        
+        // Load the repairs & service FXML
+        URL fxmlUrl = getClass().getResource("/fxml/RepairsService.fxml");
+        if (fxmlUrl == null) {
+            System.err.println("ERROR: Cannot find RepairsService.fxml. Check your project structure.");
+            throw new IOException("RepairsService.fxml not found");
+        }
+        
+        FXMLLoader loader = new FXMLLoader(fxmlUrl);
+        Parent root = loader.load();
+        
+        // Create a new scene
+        Scene scene = new Scene(root, 1400, 900);
+        
+        // Set the new scene on the current stage
+        currentStage.setScene(scene);
+        currentStage.show();
     }
 }

@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<HBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bcms.controller.RepairsServiceController" stylesheets="@../styles/repairs.css, @../styles/dashboard.css">
+    <!-- Sidebar -->
+    <VBox styleClass="sidebar" prefWidth="250" spacing="10">
+        <!-- Brand Header -->
+        <VBox styleClass="sidebar-header" alignment="CENTER">
+            <Text styleClass="brand-title" text="Bestun Cars" fill="WHITE" />
+            <Text styleClass="brand-subtitle" text="Management System" fill="WHITE" />
+        </VBox>
+        
+        <!-- Navigation Menu -->
+        <VBox spacing="5" VBox.vgrow="ALWAYS">
+            <padding>
+                <Insets top="20" right="10" bottom="10" left="10" />
+            </padding>
+            <!-- Dashboard -->
+            <Button fx:id="dashboardBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Dashboard">
+                <graphic>
+                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/Home.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            
+            <!-- Inventory -->
+            <Button fx:id="inventoryBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Cars Inventory">
+                <graphic>
+                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/Car Rental.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            
+            <!-- Repairs & Service (active) -->
+            <Button fx:id="repairsBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button, active" text="Repairs &amp; Service">
+                <graphic>
+                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/Service.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            
+            <!-- Sales -->
+            <Button fx:id="salesBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Sales">
+                <graphic>
+                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/Total Sales.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            
+            <!-- Customers -->
+            <Button fx:id="customersBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Customers">
+                <graphic>
+                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/User Groups.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            
+            <!-- Analytics -->
+            <Button fx:id="analyticsBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Analytics">
+                <graphic>
+                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/Graph.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            
+            <!-- Finance -->
+            <Button fx:id="financeBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Finance">
+                <graphic>
+                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/Money.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            
+            <!-- Activity -->
+            <Button fx:id="activityBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Activity">
+                <graphic>
+                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/hugeicons_activity-03.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            
+            <!-- Settings -->
+            <Button fx:id="settingsBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Settings">
+                <graphic>
+                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/User Settings.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            
+            <!-- User Management -->
+            <Button fx:id="userMgmtBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="User Management">
+                <graphic>
+                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/Male User.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+        </VBox>
+    </VBox>
+    
+    <!-- Main Content Area -->
+    <VBox styleClass="main-content" HBox.hgrow="ALWAYS">
+        <VBox styleClass="content-header">
+            <padding>
+                <Insets top="20" right="30" bottom="20" left="30" />
+            </padding>
+            <HBox alignment="CENTER_LEFT" spacing="15">
+                <VBox>
+                    <Text styleClass="welcome-text" text="Repairs &amp; Service" fill="WHITE" />
+                    <Text styleClass="inventory-subtitle" text="Manage vehicle repairs and service records" fill="WHITE" />
+                </VBox>
+                <HBox spacing="10" alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                    <Button fx:id="addRepairButton" styleClass="action-button" text="New Repair">
+                        <graphic>
+                            <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../images/Service.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="exportButton" styleClass="export-button" text="Export" />
+                </HBox>
+            </HBox>
+        </VBox>
+        
+        <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="content-scroll">
+            <VBox spacing="20">
+                <padding>
+                    <Insets top="20" right="30" bottom="30" left="30" />
+                </padding>
+                
+                <!-- Stats Cards Section -->
+                <HBox spacing="15" alignment="CENTER">
+                    <!-- In Progress Card -->
+                    <VBox styleClass="stats-card" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT" spacing="15">
+                            <StackPane styleClass="stats-icon-container, in-progress-bg">
+                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/Service.png" />
+                                    </image>
+                                </ImageView>
+                            </StackPane>
+                            <VBox>
+                                <Text styleClass="stats-value" text="12" />
+                                <Text styleClass="stats-label" text="In Progress" />
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                    
+                    <!-- Completed Card -->
+                    <VBox styleClass="stats-card" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT" spacing="15">
+                            <StackPane styleClass="stats-icon-container, completed-bg">
+                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/Service.png" />
+                                    </image>
+                                </ImageView>
+                            </StackPane>
+                            <VBox>
+                                <Text styleClass="stats-value" text="45" />
+                                <Text styleClass="stats-label" text="Completed" />
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                    
+                    <!-- Pending Card -->
+                    <VBox styleClass="stats-card" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT" spacing="15">
+                            <StackPane styleClass="stats-icon-container, pending-bg">
+                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/Schedule.png" />
+                                    </image>
+                                </ImageView>
+                            </StackPane>
+                            <VBox>
+                                <Text styleClass="stats-value" text="8" />
+                                <Text styleClass="stats-label" text="Pending" />
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                    
+                    <!-- Total Revenue Card -->
+                    <VBox styleClass="stats-card" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT" spacing="15">
+                            <StackPane styleClass="stats-icon-container, revenue-bg">
+                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/Money.png" />
+                                    </image>
+                                </ImageView>
+                            </StackPane>
+                            <VBox>
+                                <Text styleClass="stats-value" text="24,560" />
+                                <Text styleClass="stats-label" text="Total Revenue" />
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                </HBox>
+                
+                <!-- Filter Section -->
+                <VBox styleClass="card-container">
+                    <HBox styleClass="filters-section" spacing="15" alignment="CENTER_LEFT">
+                        <padding>
+                            <Insets top="15" right="15" bottom="15" left="15" />
+                        </padding>
+                        
+                        <!-- Search Field -->
+                        <HBox alignment="CENTER_LEFT" spacing="5">
+                            <Label text="Search:" styleClass="filter-label" />
+                            <TextField fx:id="searchField" promptText="Search by car or repair..." prefWidth="250" styleClass="search-field" />
+                        </HBox>
+                        
+                        <!-- Status Filter -->
+                        <HBox alignment="CENTER_LEFT" spacing="5">
+                            <Label text="Status:" styleClass="filter-label" />
+                            <ComboBox fx:id="statusFilter" prefWidth="150" styleClass="filter-combo" />
+                        </HBox>
+                        
+                        <!-- Date Range Filter -->
+                        <HBox alignment="CENTER_LEFT" spacing="5">
+                            <Label text="Date Range:" styleClass="filter-label" />
+                            <ComboBox fx:id="dateRangeFilter" prefWidth="150" styleClass="filter-combo" />
+                        </HBox>
+                        
+                        <Region HBox.hgrow="ALWAYS" />
+                        
+                        <!-- Reset Button -->
+                        <Button fx:id="resetButton" text="Reset Filters" styleClass="reset-button" />
+                    </HBox>
+                </VBox>
+                
+                <!-- Table View -->
+                <VBox styleClass="card-container">
+                    <TableView fx:id="repairsTableView" styleClass="data-table" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="selectColumn" prefWidth="40" />
+                            <TableColumn fx:id="repairIdColumn" text="ID" prefWidth="80" />
+                            <TableColumn fx:id="carInfoColumn" text="Vehicle" prefWidth="200" />
+                            <TableColumn fx:id="repairTypeColumn" text="Repair Type" prefWidth="150" />
+                            <TableColumn fx:id="statusColumn" text="Status" prefWidth="100" />
+                            <TableColumn fx:id="technicianColumn" text="Technician" prefWidth="150" />
+                            <TableColumn fx:id="startDateColumn" text="Start Date" prefWidth="120" />
+                            <TableColumn fx:id="costColumn" text="Cost" prefWidth="100" />
+                            <TableColumn fx:id="actionsColumn" text="Actions" prefWidth="100" />
+                        </columns>
+                    </TableView>
+                    
+                    <!-- Pagination -->
+                    <HBox alignment="CENTER" styleClass="pagination-container">
+                        <padding>
+                            <Insets top="10" bottom="10" />
+                        </padding>
+                        <Pagination fx:id="pagination" pageCount="10" maxPageIndicatorCount="5" styleClass="custom-pagination" />
+                    </HBox>
+                </VBox>
+                
+                <!-- Upcoming Repairs Section -->
+                <VBox styleClass="card-container" spacing="15">
+                    <padding>
+                        <Insets top="15" right="15" bottom="15" left="15" />
+                    </padding>
+                    <HBox alignment="CENTER_LEFT">
+                        <Label text="Upcoming Scheduled Repairs" styleClass="section-title" />
+                    </HBox>
+                    
+                    <GridPane hgap="15" vgap="15">
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="ALWAYS" percentWidth="50" />
+                            <ColumnConstraints hgrow="ALWAYS" percentWidth="50" />
+                        </columnConstraints>
+                        
+                        <!-- Repair Card 1 -->
+                        <VBox styleClass="upcoming-repair-card" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <VBox spacing="5">
+                                    <Text styleClass="car-name" text="BMW X5 M Sport" />
+                                    <Text styleClass="repair-info" text="Regular Maintenance" />
+                                    <HBox spacing="5">
+                                        <Text styleClass="date-time" text="July 02, 2025 • 10:30 AM" />
+                                        <Region HBox.hgrow="ALWAYS" />
+                                        <Label styleClass="status-badge, status-pending" text="Pending" />
+                                    </HBox>
+                                </VBox>
+                            </HBox>
+                        </VBox>
+                        
+                        <!-- Repair Card 2 -->
+                        <VBox styleClass="upcoming-repair-card" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <VBox spacing="5">
+                                    <Text styleClass="car-name" text="Mercedes-Benz G Class" />
+                                    <Text styleClass="repair-info" text="Engine Diagnostics" />
+                                    <HBox spacing="5">
+                                        <Text styleClass="date-time" text="July 03, 2025 • 2:15 PM" />
+                                        <Region HBox.hgrow="ALWAYS" />
+                                        <Label styleClass="status-badge, status-pending" text="Pending" />
+                                    </HBox>
+                                </VBox>
+                            </HBox>
+                        </VBox>
+                        
+                        <!-- Repair Card 3 -->
+                        <VBox styleClass="upcoming-repair-card" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <VBox spacing="5">
+                                    <Text styleClass="car-name" text="Audi Q7 Premium" />
+                                    <Text styleClass="repair-info" text="Brake System Repair" />
+                                    <HBox spacing="5">
+                                        <Text styleClass="date-time" text="July 05, 2025 • 9:00 AM" />
+                                        <Region HBox.hgrow="ALWAYS" />
+                                        <Label styleClass="status-badge, status-pending" text="Pending" />
+                                    </HBox>
+                                </VBox>
+                            </HBox>
+                        </VBox>
+                        
+                        <!-- Repair Card 4 -->
+                        <VBox styleClass="upcoming-repair-card" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <VBox spacing="5">
+                                    <Text styleClass="car-name" text="Tesla Model Y" />
+                                    <Text styleClass="repair-info" text="Software Update" />
+                                    <HBox spacing="5">
+                                        <Text styleClass="date-time" text="July 07, 2025 • 11:45 AM" />
+                                        <Region HBox.hgrow="ALWAYS" />
+                                        <Label styleClass="status-badge, status-pending" text="Pending" />
+                                    </HBox>
+                                </VBox>
+                            </HBox>
+                        </VBox>
+                    </GridPane>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </VBox>
+</HBox>
