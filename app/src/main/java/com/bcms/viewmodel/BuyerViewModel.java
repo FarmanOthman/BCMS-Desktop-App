@@ -38,7 +38,7 @@ public class BuyerViewModel {
             "john@example.com", 
             "+1 555-1234", 
             "123 Main St, NY",
-            "Toyota Camry"
+            3
         ));
         
         allBuyers.add(new BuyerItem(
@@ -47,7 +47,7 @@ public class BuyerViewModel {
             "jane@domain.com", 
             "+1 555-5678", 
             "456 Oak Ave, CA",
-            "Honda Civic"
+            1
         ));
         
         allBuyers.add(new BuyerItem(
@@ -56,7 +56,7 @@ public class BuyerViewModel {
             "mike.johnson@outlook.com", 
             "+1 555-9012", 
             "789 Pine Rd, TX",
-            "Ford F-150"
+            2
         ));
         
         allBuyers.add(new BuyerItem(
@@ -65,7 +65,7 @@ public class BuyerViewModel {
             "sarah.w@gmail.com", 
             "+1 555-3456", 
             "321 Elm St, FL",
-            "BMW X3"
+            4
         ));
     }
     
@@ -158,16 +158,31 @@ public class BuyerViewModel {
         private final StringProperty email = new SimpleStringProperty();
         private final StringProperty phone = new SimpleStringProperty();
         private final StringProperty address = new SimpleStringProperty();
-        private final StringProperty carName = new SimpleStringProperty();
+        private final IntegerProperty purchases = new SimpleIntegerProperty(); // Changed from carName to purchases
         private final ObjectProperty<HBox> actions = new SimpleObjectProperty<>();
         
+        // Keep the old constructor for backward compatibility
         public BuyerItem(int id, String name, String email, String phone, String address, String carName) {
             this.id.set(id);
             this.name.set(name);
             this.email.set(email);
             this.phone.set(phone);
             this.address.set(address);
-            this.carName.set(carName);
+            this.purchases.set(1); // Default to 1 purchase
+            
+            // Create actions buttons for this buyer
+            HBox actionBox = createActionButtons(id);
+            this.actions.set(actionBox);
+        }
+        
+        // Add new constructor for purchases
+        public BuyerItem(int id, String name, String email, String phone, String address, int purchases) {
+            this.id.set(id);
+            this.name.set(name);
+            this.email.set(email);
+            this.phone.set(phone);
+            this.address.set(address);
+            this.purchases.set(purchases);
             
             // Create actions buttons for this buyer
             HBox actionBox = createActionButtons(id);
@@ -259,6 +274,7 @@ public class BuyerViewModel {
             return hbox;
         }
         
+        // Getters and setters
         public int getId() {
             return id.get();
         }
@@ -299,12 +315,13 @@ public class BuyerViewModel {
             return address;
         }
         
-        public String getCarName() {
-            return carName.get();
+        // Replace carName methods with purchases methods
+        public int getPurchases() {
+            return purchases.get();
         }
         
-        public StringProperty carNameProperty() {
-            return carName;
+        public IntegerProperty purchasesProperty() {
+            return purchases;
         }
         
         public HBox getActions() {
@@ -315,7 +332,7 @@ public class BuyerViewModel {
             return actions;
         }
         
-        // Setter methods
+        // Setters
         public void setName(String name) {
             this.name.set(name);
         }
@@ -332,8 +349,17 @@ public class BuyerViewModel {
             this.address.set(address);
         }
         
+        public void setPurchases(int purchases) {
+            this.purchases.set(purchases);
+        }
+        
+        // Keep carName methods for backward compatibility
+        public String getCarName() {
+            return "N/A";
+        }
+        
         public void setCarName(String carName) {
-            this.carName.set(carName);
+            // Do nothing, just for backward compatibility
         }
     }
 }

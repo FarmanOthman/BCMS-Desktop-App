@@ -3,6 +3,8 @@ package com.bcms.controller;
 import javafx.fxml.FXML;
 import javafx.scene.chart.*;
 import javafx.scene.layout.VBox;
+import javafx.scene.control.Button;
+import javafx.event.ActionEvent;
 
 public class DashboardController extends BaseController {
     
@@ -65,10 +67,12 @@ public class DashboardController extends BaseController {
     
     // Quick Actions handlers
     @FXML
-    private void handleAddNewCar() {
+    private void handleAddNewCar(ActionEvent event) {
         System.out.println("Add new car clicked");
         try {
-            NavigationController.openInventory(null);
+            // Get the button that triggered this event
+            Button sourceButton = (Button) event.getSource();
+            NavigationController.openInventory(sourceButton);
         } catch (Exception e) {
             System.err.println("Error navigating to inventory from quick action:");
             e.printStackTrace();

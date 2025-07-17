@@ -13,26 +13,31 @@ import java.util.Optional;
 public class BuyerController extends BaseController {
     
     @FXML private TextField searchField;
-    @FXML private ComboBox<String> buyerTypeFilter;
-    @FXML private ComboBox<String> statusFilter;
-    @FXML private Button resetButton;
-    @FXML private Button addBuyerButton;
-    @FXML private Button deleteButton;
+    // Remove these fields that don't exist in the new FXML
+    // @FXML private ComboBox<String> buyerTypeFilter;
+    // @FXML private ComboBox<String> statusFilter;
+    // @FXML private Button resetButton;
+    @FXML private Button addCustomerBtn; // Changed from addBuyerButton to match FXML
+    // @FXML private Button deleteButton;
     
-    @FXML private TableView<BuyerViewModel.BuyerItem> buyerTableView;
+    @FXML private TableView<BuyerViewModel.BuyerItem> customersTable; // Changed from buyerTableView to match FXML
     @FXML private TableColumn<BuyerViewModel.BuyerItem, Integer> idColumn;
     @FXML private TableColumn<BuyerViewModel.BuyerItem, String> nameColumn;
     @FXML private TableColumn<BuyerViewModel.BuyerItem, String> emailColumn;
     @FXML private TableColumn<BuyerViewModel.BuyerItem, String> phoneColumn;
     @FXML private TableColumn<BuyerViewModel.BuyerItem, String> addressColumn;
-    @FXML private TableColumn<BuyerViewModel.BuyerItem, String> carNameColumn;
+    @FXML private TableColumn<BuyerViewModel.BuyerItem, Integer> purchasesColumn; // Changed from carNameColumn
     @FXML private TableColumn<BuyerViewModel.BuyerItem, HBox> actionsColumn;
     
-    @FXML private Pagination pagination;
+    // @FXML private Pagination pagination; // Removed as it's not in the new FXML
+    
+    @FXML private Label totalCustomersLabel;
+    @FXML private Label newCustomersLabel;
+    @FXML private Label repeatCustomersLabel;
     
     private BuyerViewModel viewModel;
     
-        @Override
+    @Override
     public String getCurrentPageName() {
         return "buyer";
     }
@@ -43,41 +48,14 @@ public class BuyerController extends BaseController {
         viewModel = new BuyerViewModel();
         
         // Set up the UI components
-        setupFilters();
+        // setupFilters(); // Remove as filters have been removed
         setupTableView();
-        setupPagination();
+        // setupPagination(); // Remove as pagination has been removed
         setupButtons();
+        setupStatLabels();
     }
     
-    private void setupFilters() {
-        // Set up the buyer type filter
-        buyerTypeFilter.setItems(FXCollections.observableArrayList(
-            "All Buyers", "New Buyers", "Returning Buyers"
-        ));
-        buyerTypeFilter.setValue("All Buyers");
-        
-        // Set up the status filter
-        statusFilter.setItems(FXCollections.observableArrayList(
-            "Active Only", "Inactive", "All Status"
-        ));
-        statusFilter.setValue("Active Only");
-        
-        // Set up search field
-        searchField.setPromptText("Search by name or email...");
-        
-        // Reset button action
-        resetButton.setOnAction(e -> {
-            searchField.clear();
-            buyerTypeFilter.setValue("All Buyers");
-            statusFilter.setValue("Active Only");
-            refreshTable();
-        });
-        
-        // Add listeners to filters to refresh table when changed
-        buyerTypeFilter.setOnAction(e -> refreshTable());
-        statusFilter.setOnAction(e -> refreshTable());
-        searchField.textProperty().addListener((obs, oldVal, newVal) -> refreshTable());
-    }
+    // Remove setupFilters() method as it's no longer needed
     
     private void setupTableView() {
         // Configure table columns
@@ -86,37 +64,30 @@ public class BuyerController extends BaseController {
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
         addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
-        carNameColumn.setCellValueFactory(new PropertyValueFactory<>("carName"));
+        purchasesColumn.setCellValueFactory(new PropertyValueFactory<>("purchases")); // Changed from carName
         actionsColumn.setCellValueFactory(new PropertyValueFactory<>("actions"));
         
         // Load data into the table
         refreshTable();
     }
     
-    private void setupPagination() {
-        pagination.setPageCount(10); // Set based on total pages in your data
-        pagination.setCurrentPageIndex(0);
-        pagination.setPageFactory(this::createPage);
-    }
+    // Remove setupPagination() method as it's no longer needed
     
-    private TableView<BuyerViewModel.BuyerItem> createPage(int pageIndex) {
-        // This method would update the table with the correct page of data
-        // For now, we'll just use the same data for each page
-        return buyerTableView;
-    }
+    // Remove createPage() method as it's no longer needed
     
     private void setupButtons() {
-        // Add Buyer button
-        addBuyerButton.setOnAction(e -> {
-            System.out.println("Add Buyer clicked");
+        // Add Customer button
+        addCustomerBtn.setOnAction(e -> {
+            System.out.println("Add Customer clicked");
             openAddBuyerDialog();
         });
-        
-        // Delete button
-        deleteButton.setOnAction(e -> {
-            System.out.println("Delete clicked");
-            deleteSelectedBuyers();
-        });
+    }
+    
+    private void setupStatLabels() {
+        // Set up the statistics labels with data from the view model
+        totalCustomersLabel.setText(String.valueOf(viewModel.getAllBuyers().size()));
+        newCustomersLabel.setText("18"); // Placeholder value
+        repeatCustomersLabel.setText("42"); // Placeholder value
     }
     
     private void openAddBuyerDialog() {
@@ -125,8 +96,8 @@ public class BuyerController extends BaseController {
         
         // Sample implementation (in a real app, you would have a proper dialog)
         Dialog<BuyerViewModel.BuyerItem> dialog = new Dialog<>();
-        dialog.setTitle("Add New Buyer");
-        dialog.setHeaderText("Enter buyer details");
+        dialog.setTitle("Add New Customer");
+        dialog.setHeaderText("Enter customer details");
         
         // Set the button types
         ButtonType saveButtonType = new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
@@ -141,8 +112,8 @@ public class BuyerController extends BaseController {
         phoneField.setPromptText("Phone");
         TextField addressField = new TextField();
         addressField.setPromptText("Address");
-        TextField carField = new TextField();
-        carField.setPromptText("Car Name/Model");
+        TextField purchasesField = new TextField();
+        purchasesField.setPromptText("Number of Purchases");
         
         // Layout the dialog
         javafx.scene.layout.GridPane grid = new javafx.scene.layout.GridPane();
@@ -158,8 +129,8 @@ public class BuyerController extends BaseController {
         grid.add(phoneField, 1, 2);
         grid.add(new Label("Address:"), 0, 3);
         grid.add(addressField, 1, 3);
-        grid.add(new Label("Car:"), 0, 4);
-        grid.add(carField, 1, 4);
+        grid.add(new Label("Purchases:"), 0, 4);
+        grid.add(purchasesField, 1, 4);
         
         dialog.getDialogPane().setContent(grid);
         
@@ -179,7 +150,7 @@ public class BuyerController extends BaseController {
                     emailField.getText(),
                     phoneField.getText(),
                     addressField.getText(),
-                    carField.getText()
+                    Integer.parseInt(purchasesField.getText().isEmpty() ? "0" : purchasesField.getText())
                 );
             }
             return null;
@@ -193,6 +164,9 @@ public class BuyerController extends BaseController {
             
             // Refresh the table
             refreshTable();
+            
+            // Update stats
+            setupStatLabels();
         });
     }
     
@@ -295,17 +269,13 @@ public class BuyerController extends BaseController {
     }
     
     private void refreshTable() {
-        // Get the filtered data from view model based on current filters
-        String searchText = searchField.getText() != null ? searchField.getText().toLowerCase() : "";
-        String buyerTypeFilterValue = buyerTypeFilter.getValue();
-        String statusFilterValue = statusFilter.getValue();
-        
-        buyerTableView.setItems(viewModel.getFilteredBuyers(searchText, buyerTypeFilterValue, statusFilterValue));
+        // Get all buyers since filters have been removed
+        customersTable.setItems(viewModel.getAllBuyers());
     }
     
     private void deleteSelectedBuyers() {
         // Get selected items
-        ObservableList<BuyerViewModel.BuyerItem> selectedItems = buyerTableView.getSelectionModel().getSelectedItems();
+        ObservableList<BuyerViewModel.BuyerItem> selectedItems = customersTable.getSelectionModel().getSelectedItems();
         
         if (selectedItems == null || selectedItems.isEmpty()) {
             showErrorAlert("Delete Error", "No buyers selected", "Please select one or more buyers to delete.");
