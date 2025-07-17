@@ -20,8 +20,7 @@
             <HBox styleClass="header">
                 <Text text="Cars Inventory" styleClass="header-title" />
                 <Region HBox.hgrow="ALWAYS" />
-                <TextField fx:id="searchField" promptText="Search cars..." styleClass="search-field" />
-                <Button fx:id="addNewCarButton" text="Add New Car" styleClass="add-button" />
+                <Button fx:id="addCarBtn" text="Add New Car" styleClass="add-button" />
             </HBox>
             
             <!-- Filters -->
@@ -48,9 +47,7 @@
                 
                 <Region HBox.hgrow="ALWAYS" />
                 
-                <!-- Action Buttons -->
-                <Button fx:id="deleteButton" styleClass="delete-button" text="Delete" />
-                <Button fx:id="exportCSVButton" styleClass="export-button" text="Export CSV" />
+                <!-- Reset Button -->
                 <Button fx:id="resetButton" styleClass="reset-button" text="Reset" />
             </HBox>
             

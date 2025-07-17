@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.bcms.controller.SettingsController" styleClass="root">
+    <left>
+        <!-- Sidebar Container -->
+        <VBox fx:id="sidebarContainer" prefWidth="240.0" BorderPane.alignment="CENTER" />
+    </left>
+    
+    <center>
+        <!-- Main Content Area -->
+        <VBox styleClass="main-content">
+            <!-- Page Header -->
+            <HBox spacing="20" alignment="CENTER_LEFT" styleClass="content-header">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20" />
+                </padding>
+                <VBox>
+                    <Label fx:id="settingsTitle" text="Settings" styleClass="settings-title" />
+                    <Label fx:id="settingsSubtitle" text="Configure system settings and preferences" styleClass="settings-subtitle" />
+                </VBox>
+            </HBox>
+            
+            <!-- Settings Content -->
+            <ScrollPane fitToWidth="true" styleClass="settings-scroll">
+                <VBox styleClass="settings-main-container">
+                    <!-- General Settings Section -->
+                    <VBox styleClass="settings-section">
+                        <Label text="General Settings" styleClass="settings-section-title" />
+                        <Label text="Basic information about your business" styleClass="settings-section-subtitle" />
+                        
+                        <Separator styleClass="settings-divider" />
+                        
+                        <!-- Company Information -->
+                        <GridPane hgap="20" vgap="15">
+                            <padding>
+                                <Insets top="15" bottom="15" />
+                            </padding>
+                            
+                            <!-- Company Name -->
+                            <Label text="Company Name:" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="settings-label" />
+                            <TextField fx:id="companyNameField" GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="settings-field" />
+                            
+                            <!-- Company Address -->
+                            <Label text="Company Address:" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="settings-label" />
+                            <TextField fx:id="companyAddressField" GridPane.rowIndex="1" GridPane.columnIndex="1" styleClass="settings-field" />
+                            
+                            <!-- Company Phone -->
+                            <Label text="Phone Number:" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="settings-label" />
+                            <TextField fx:id="companyPhoneField" GridPane.rowIndex="2" GridPane.columnIndex="1" styleClass="settings-field" />
+                            
+                            <!-- Company Email -->
+                            <Label text="Email Address:" GridPane.rowIndex="3" GridPane.columnIndex="0" styleClass="settings-label" />
+                            <TextField fx:id="companyEmailField" GridPane.rowIndex="3" GridPane.columnIndex="1" styleClass="settings-field" />
+                            
+                            <!-- Tax Rate -->
+                            <Label text="Tax Rate (%):" GridPane.rowIndex="4" GridPane.columnIndex="0" styleClass="settings-label" />
+                            <HBox spacing="10" GridPane.rowIndex="4" GridPane.columnIndex="1">
+                                <TextField fx:id="taxRateField" prefWidth="100" styleClass="settings-field" />
+                                <CheckBox fx:id="enableTaxCheckbox" text="Enable Tax" styleClass="settings-checkbox" />
+                            </HBox>
+                            
+                            <!-- Default Currency -->
+                            <Label text="Default Currency:" GridPane.rowIndex="5" GridPane.columnIndex="0" styleClass="settings-label" />
+                            <ComboBox fx:id="defaultCurrencyComboBox" GridPane.rowIndex="5" GridPane.columnIndex="1" styleClass="settings-combo-box" />
+                            
+                            <!-- Date Format -->
+                            <Label text="Date Format:" GridPane.rowIndex="6" GridPane.columnIndex="0" styleClass="settings-label" />
+                            <ComboBox fx:id="dateFormatComboBox" GridPane.rowIndex="6" GridPane.columnIndex="1" styleClass="settings-combo-box" />
+                            
+                            <!-- Brand Color -->
+                            <Label text="Brand Color:" GridPane.rowIndex="7" GridPane.columnIndex="0" styleClass="settings-label" />
+                            <ColorPicker fx:id="brandColorPicker" GridPane.rowIndex="7" GridPane.columnIndex="1" styleClass="settings-color-picker">
+                                <value>
+                                    <Color red="0.31" green="0.49" blue="1.0" />
+                                </value>
+                            </ColorPicker>
+                            
+                            <!-- Backup Location -->
+                            <Label text="Backup Location:" GridPane.rowIndex="8" GridPane.columnIndex="0" styleClass="settings-label" />
+                            <HBox spacing="10" GridPane.rowIndex="8" GridPane.columnIndex="1">
+                                <TextField fx:id="backupLocationField" HBox.hgrow="ALWAYS" styleClass="settings-field" />
+                                <Button fx:id="chooseBackupLocationButton" text="Browse..." styleClass="settings-action-button" />
+                            </HBox>
+                        </GridPane>
+                    </VBox>
+                    
+                    <!-- Notification Settings Section -->
+                    <VBox styleClass="settings-section">
+                        <Label text="Notification Settings" styleClass="settings-section-title" />
+                        <Label text="Configure how and when you receive notifications" styleClass="settings-section-subtitle" />
+                        
+                        <Separator styleClass="settings-divider" />
+                        
+                        <VBox spacing="15">
+                            <padding>
+                                <Insets top="15" right="0" bottom="15" left="0" />
+                            </padding>
+                            <CheckBox fx:id="emailNotificationsCheckbox" text="Email Notifications" styleClass="settings-checkbox" />
+                            <CheckBox fx:id="smsNotificationsCheckbox" text="SMS Notifications" styleClass="settings-checkbox" />
+                            <CheckBox fx:id="lowInventoryAlertsCheckbox" text="Low Inventory Alerts" styleClass="settings-checkbox" />
+                            <CheckBox fx:id="paymentReceiptAlertsCheckbox" text="Payment Receipt Alerts" styleClass="settings-checkbox" />
+                            <CheckBox fx:id="repairStatusAlertsCheckbox" text="Repair Status Updates" styleClass="settings-checkbox" />
+                        </VBox>
+                    </VBox>
+                    
+                    <!-- Integration Settings Section -->
+                    <VBox styleClass="settings-section">
+                        <Label text="Integration Settings" styleClass="settings-section-title" />
+                        <Label text="API keys and webhook settings for third-party integrations" styleClass="settings-section-subtitle" />
+                        
+                        <Separator styleClass="settings-divider" />
+                        
+                        <GridPane hgap="20" vgap="15">
+                            <padding>
+                                <Insets top="15" bottom="15" />
+                            </padding>
+                            
+                            <!-- API Key -->
+                            <Label text="API Key:" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="settings-label" />
+                            <HBox spacing="10" GridPane.rowIndex="0" GridPane.columnIndex="1">
+                                <TextField fx:id="apiKeyField" HBox.hgrow="ALWAYS" styleClass="settings-field" editable="false" />
+                                <Button fx:id="regenerateApiKeyButton" text="Regenerate" styleClass="danger-action-button" />
+                            </HBox>
+                            
+                            <!-- Secret Key -->
+                            <Label text="Secret Key:" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="settings-label" />
+                            <PasswordField fx:id="secretKeyField" GridPane.rowIndex="1" GridPane.columnIndex="1" styleClass="settings-password-field" />
+                            
+                            <!-- Webhook URL -->
+                            <Label text="Webhook URL:" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="settings-label" />
+                            <TextField fx:id="webhookUrlField" GridPane.rowIndex="2" GridPane.columnIndex="1" styleClass="settings-field" />
+                        </GridPane>
+                    </VBox>
+                    
+                    <!-- Database Settings Section -->
+                    <VBox styleClass="settings-section">
+                        <Label text="Database Settings" styleClass="settings-section-title" />
+                        <Label text="Configure your database connection and manage backups" styleClass="settings-section-subtitle" />
+                        
+                        <Separator styleClass="settings-divider" />
+                        
+                        <GridPane hgap="20" vgap="15">
+                            <padding>
+                                <Insets top="15" bottom="15" />
+                            </padding>
+                            
+                            <!-- Database Host -->
+                            <Label text="Database Host:" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="settings-label" />
+                            <TextField fx:id="dbHostField" GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="settings-field" />
+                            
+                            <!-- Database Port -->
+                            <Label text="Database Port:" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="settings-label" />
+                            <TextField fx:id="dbPortField" GridPane.rowIndex="1" GridPane.columnIndex="1" styleClass="settings-field" />
+                            
+                            <!-- Database Name -->
+                            <Label text="Database Name:" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="settings-label" />
+                            <TextField fx:id="dbNameField" GridPane.rowIndex="2" GridPane.columnIndex="1" styleClass="settings-field" />
+                            
+                            <!-- Database User -->
+                            <Label text="Database User:" GridPane.rowIndex="3" GridPane.columnIndex="0" styleClass="settings-label" />
+                            <TextField fx:id="dbUserField" GridPane.rowIndex="3" GridPane.columnIndex="1" styleClass="settings-field" />
+                            
+                            <!-- Database Password -->
+                            <Label text="Database Password:" GridPane.rowIndex="4" GridPane.columnIndex="0" styleClass="settings-label" />
+                            <PasswordField fx:id="dbPasswordField" GridPane.rowIndex="4" GridPane.columnIndex="1" styleClass="settings-password-field" />
+                            
+                            <!-- Database Actions -->
+                            <Label text="Database Actions:" GridPane.rowIndex="5" GridPane.columnIndex="0" styleClass="settings-label" />
+                            <HBox spacing="10" GridPane.rowIndex="5" GridPane.columnIndex="1">
+                                <Button fx:id="testConnectionButton" text="Test Connection" styleClass="primary-action-button" />
+                                <Button fx:id="exportDatabaseButton" text="Export Database" styleClass="settings-action-button" />
+                                <Button fx:id="importDatabaseButton" text="Import Database" styleClass="settings-action-button" />
+                            </HBox>
+                        </GridPane>
+                    </VBox>
+                </VBox>
+            </ScrollPane>
+            
+            <!-- Bottom Action Bar -->
+            <HBox styleClass="bottom-actions">
+                <Button fx:id="resetButton" text="Reset to Defaults" styleClass="reset-button" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Button fx:id="saveButton" text="Save Settings" styleClass="save-button" />
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

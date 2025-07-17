@@ -8,6 +8,8 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import java.io.IOException;
+import java.net.URL;
+import java.net.URL;
 
 public class LoginController {
     
@@ -42,22 +44,35 @@ public class LoginController {
     }
     
     private void openDashboard() throws IOException {
+        // Create a new stage for dashboard since we're not navigating from a button
+        Stage dashboardStage = new Stage();
+        dashboardStage.setMinWidth(1200);
+        dashboardStage.setMinHeight(800);
+        
         // Load the dashboard FXML
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Dashboard.fxml"));
+        URL fxmlUrl = getClass().getResource("/fxml/Dashboard.fxml");
+        if (fxmlUrl == null) {
+            System.err.println("ERROR: Cannot find Dashboard.fxml. Check your project structure.");
+            throw new IOException("Dashboard.fxml not found");
+        }
+        
+        FXMLLoader loader = new FXMLLoader(fxmlUrl);
         Parent root = loader.load();
         
-        // Create new stage for dashboard
-        Stage dashboardStage = new Stage();
+        // Create a new scene
         Scene scene = new Scene(root, 1400, 900);
         
         // Add the CSS file
-        scene.getStylesheets().add(getClass().getResource("/styles/dashboard.css").toExternalForm());
+        URL cssUrl = getClass().getResource("/styles/dashboard.css");
+        if (cssUrl != null) {
+            scene.getStylesheets().add(cssUrl.toExternalForm());
+        } else {
+            System.err.println("WARNING: dashboard.css not found");
+        }
         
-        // Set up the dashboard stage
-        dashboardStage.setTitle("Bestun Cars Management System");
+        // Set the scene to the stage
         dashboardStage.setScene(scene);
-        dashboardStage.setMinWidth(1200);
-        dashboardStage.setMinHeight(800);
+        dashboardStage.setTitle("Bestun Cars Management System - Dashboard");
         
         // Show the dashboard
         dashboardStage.show();

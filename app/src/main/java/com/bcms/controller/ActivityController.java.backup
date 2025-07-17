@@ -69,6 +69,133 @@ public class ActivityController extends BaseController {
         updateSummaryCards();
     }
     
+    private void setupNavigationHandlers() {
+        // Set Activity button as active
+        setActiveButton(activityBtn);
+        
+        // Dashboard button
+        dashboardBtn.setOnAction(e -> {
+            try {
+                setActiveButton(dashboardBtn);
+                NavigationController.openDashboard(dashboardBtn);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                NavigationController.showErrorAlert("Navigation Error", "Could not open Dashboard", ex.getMessage());
+            }
+        });
+        
+        // Inventory button
+        inventoryBtn.setOnAction(e -> {
+            try {
+                setActiveButton(inventoryBtn);
+                NavigationController.openInventory(inventoryBtn);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                NavigationController.showErrorAlert("Navigation Error", "Could not open Inventory", ex.getMessage());
+            }
+        });
+        
+        // Repairs button
+        repairsBtn.setOnAction(e -> {
+            try {
+                setActiveButton(repairsBtn);
+                NavigationController.openRepairsService(repairsBtn);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                NavigationController.showErrorAlert("Navigation Error", "Could not open Repairs & Service", ex.getMessage());
+            }
+        });
+        
+        // Sales button
+        salesBtn.setOnAction(e -> {
+            try {
+                setActiveButton(salesBtn);
+                NavigationController.openSales(salesBtn);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                NavigationController.showErrorAlert("Navigation Error", "Could not open Sales", ex.getMessage());
+            }
+        });
+        
+        // Customers button
+        customersBtn.setOnAction(e -> {
+            try {
+                setActiveButton(customersBtn);
+                NavigationController.openBuyers(customersBtn);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                NavigationController.showErrorAlert("Navigation Error", "Could not open Buyers", ex.getMessage());
+            }
+        });
+        
+        // Analytics button
+        analyticsBtn.setOnAction(e -> {
+            try {
+                setActiveButton(analyticsBtn);
+                NavigationController.openAnalytics(analyticsBtn);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                NavigationController.showErrorAlert("Navigation Error", "Could not open Analytics", ex.getMessage());
+            }
+        });
+        
+        // Finance button
+        financeBtn.setOnAction(e -> {
+            try {
+                setActiveButton(financeBtn);
+                NavigationController.openFinance(financeBtn);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                NavigationController.showErrorAlert("Navigation Error", "Could not open Finance", ex.getMessage());
+            }
+        });
+        
+        // Activity button (already active)
+        activityBtn.setOnAction(e -> {
+            // Already on activity page
+            System.out.println("Already on Activity page");
+        });
+        
+        // Settings button
+        settingsBtn.setOnAction(e -> {
+            try {
+                setActiveButton(settingsBtn);
+                NavigationController.openSettings(settingsBtn);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                NavigationController.showErrorAlert("Navigation Error", "Could not open Settings", ex.getMessage());
+            }
+        });
+        
+        // User Management button
+        userMgmtBtn.setOnAction(e -> {
+            try {
+                setActiveButton(userMgmtBtn);
+                NavigationController.openUserManagement(userMgmtBtn);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                NavigationController.showErrorAlert("Navigation Error", "Could not open User Management", ex.getMessage());
+            }
+        });
+    }
+    
+    private void setActiveButton(Button activeBtn) {
+        // Remove active class from all buttons
+        dashboardBtn.getStyleClass().remove("active");
+        inventoryBtn.getStyleClass().remove("active");
+        repairsBtn.getStyleClass().remove("active");
+        salesBtn.getStyleClass().remove("active");
+        customersBtn.getStyleClass().remove("active");
+        analyticsBtn.getStyleClass().remove("active");
+        financeBtn.getStyleClass().remove("active");
+        activityBtn.getStyleClass().remove("active");
+        settingsBtn.getStyleClass().remove("active");
+        userMgmtBtn.getStyleClass().remove("active");
+        
+        // Add active class to selected button
+        activeBtn.getStyleClass().add("active");
+    }
+    
     private void setupFilters() {
         // Set up the severity filter
         severityFilter.setItems(FXCollections.observableArrayList(

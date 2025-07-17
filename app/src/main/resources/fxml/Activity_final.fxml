@@ -3,11 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
 
-<BorderPane prefHeight="900.0" prefWidth="1400.0" stylesheets="@../styles/activity.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bcms.controller.ActivityController">
+<BorderPane prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bcms.controller.ActivityController">
     <left>
         <!-- Sidebar Container -->
         <VBox fx:id="sidebarContainer" prefWidth="240.0" BorderPane.alignment="CENTER" />
@@ -16,22 +13,16 @@
     <center>
         <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="main-content">
             <content>
-                <VBox spacing="20.0" VBox.vgrow="ALWAYS">
+                <VBox spacing="20.0">
                     <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                        <Insets top="30.0" right="30.0" bottom="30.0" left="30.0" />
                     </padding>
                     <children>
                         <!-- Page Title -->
-                        <HBox styleClass="page-header" alignment="CENTER_LEFT">
-                            <children>
-                                <VBox>
-                                    <children>
-                                        <Label fx:id="activityTitle" styleClass="page-title" text="System Activity Log" />
-                                        <Label fx:id="activitySubtitle" styleClass="page-subtitle" text="Monitor and track all system activities and user actions" />
-                                    </children>
-                                </VBox>
-                            </children>
-                        </HBox>
+                        <VBox spacing="5.0">
+                            <Label fx:id="activityTitle" styleClass="page-title" text="System Activity Log" />
+                            <Label fx:id="activitySubtitle" styleClass="page-subtitle" text="Monitor and track all system activities and user actions" />
+                        </VBox>
                         
                         <!-- Summary Cards -->
                         <GridPane hgap="20.0" vgap="20.0">
@@ -72,38 +63,31 @@
                             </children>
                         </GridPane>
                         
-                        <!-- Activity Content -->
-                        <VBox spacing="15.0">
-                            <children>
-                                <!-- Activity Filters -->
-                                <HBox spacing="10.0" alignment="CENTER_LEFT">
-                                    <children>
-                                        <ComboBox fx:id="severityFilter" prefWidth="150.0" promptText="Filter by severity..." />
-                                        <ComboBox fx:id="userFilter" prefWidth="150.0" promptText="Filter by user..." />
-                                        <ComboBox fx:id="timeFilter" prefWidth="150.0" promptText="Filter by time..." />
-                                        <TextField fx:id="searchField" prefWidth="200.0" promptText="Search activities..." />
-                                        <Button fx:id="refreshButton" text="Refresh" />
-                                        <Button fx:id="autoRefreshButton" text="Auto Refresh" />
-                                    </children>
-                                </HBox>
-                                
-                                <!-- Activity List -->
-                                <TableView fx:id="activityTableView" prefHeight="400.0">
-                                    <columns>
-                                        <TableColumn fx:id="idColumn" text="ID" prefWidth="50.0" />
-                                        <TableColumn fx:id="severityColumn" text="Severity" prefWidth="100.0" />
-                                        <TableColumn fx:id="actionColumn" text="Action" prefWidth="150.0" />
-                                        <TableColumn fx:id="detailsColumn" text="Details" prefWidth="200.0" />
-                                        <TableColumn fx:id="userColumn" text="User" prefWidth="100.0" />
-                                        <TableColumn fx:id="timestampColumn" text="Timestamp" prefWidth="150.0" />
-                                        <TableColumn fx:id="ipAddressColumn" text="IP Address" prefWidth="120.0" />
-                                    </columns>
-                                </TableView>
-                                
-                                <!-- Pagination -->
-                                <Pagination fx:id="pagination" prefHeight="40.0" />
-                            </children>
-                        </VBox>
+                        <!-- Activity Filters -->
+                        <HBox spacing="10.0" alignment="CENTER_LEFT">
+                            <TextField fx:id="searchField" prefWidth="200.0" promptText="Search activities..." />
+                            <ComboBox fx:id="severityFilter" prefWidth="150.0" promptText="Filter by severity..." />
+                            <ComboBox fx:id="userFilter" prefWidth="150.0" promptText="Filter by user..." />
+                            <ComboBox fx:id="timeFilter" prefWidth="150.0" promptText="Filter by time..." />
+                            <Button fx:id="refreshButton" text="Refresh" />
+                            <Button fx:id="autoRefreshButton" text="Auto Refresh" />
+                        </HBox>
+                        
+                        <!-- Activity List -->
+                        <TableView fx:id="activityTableView" prefHeight="400.0">
+                            <columns>
+                                <TableColumn fx:id="idColumn" text="ID" prefWidth="50.0" />
+                                <TableColumn fx:id="severityColumn" text="Severity" prefWidth="100.0" />
+                                <TableColumn fx:id="actionColumn" text="Action" prefWidth="150.0" />
+                                <TableColumn fx:id="detailsColumn" text="Details" prefWidth="200.0" />
+                                <TableColumn fx:id="userColumn" text="User" prefWidth="100.0" />
+                                <TableColumn fx:id="timestampColumn" text="Timestamp" prefWidth="150.0" />
+                                <TableColumn fx:id="ipAddressColumn" text="IP Address" prefWidth="120.0" />
+                            </columns>
+                        </TableView>
+                        
+                        <!-- Pagination -->
+                        <Pagination fx:id="pagination" prefHeight="40.0" />
                     </children>
                 </VBox>
             </content>

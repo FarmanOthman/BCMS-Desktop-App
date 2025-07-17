@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<BorderPane prefHeight="900.0" prefWidth="1400.0" stylesheets="@../styles/activity.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bcms.controller.ActivityController">
+    <left>
+        <!-- Sidebar Container -->
+        <VBox fx:id="sidebarContainer" prefWidth="240.0" BorderPane.alignment="CENTER" />
+    </left>
+    
+    <center>
+        <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="main-content">
+            <content>
+                <VBox spacing="20.0" VBox.vgrow="ALWAYS">
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
+                    <children>
+                        <!-- Page Title -->
+                        <HBox styleClass="page-header" alignment="CENTER_LEFT">
+                            <children>
+                                <VBox>
+                                    <children>
+                                        <Label fx:id="activityTitle" styleClass="page-title" text="System Activity Log" />
+                                        <Label fx:id="activitySubtitle" styleClass="page-subtitle" text="Monitor and track all system activities and user actions" />
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                        
+                        <!-- Activity Content -->
+                        <VBox spacing="15.0">
+                            <children>
+                                <!-- Activity Filters -->
+                                <HBox spacing="10.0" alignment="CENTER_LEFT">
+                                    <children>
+                                        <ComboBox fx:id="filterComboBox" prefWidth="150.0" promptText="Filter by..." />
+                                        <TextField fx:id="searchField" prefWidth="200.0" promptText="Search activities..." />
+                                        <Button fx:id="refreshButton" text="Refresh" />
+                                    </children>
+                                </HBox>
+                                
+                                <!-- Activity List -->
+                                <TableView fx:id="activityTable" prefHeight="400.0">
+                                    <columns>
+                                        <TableColumn fx:id="timeColumn" text="Time" prefWidth="150.0" />
+                                        <TableColumn fx:id="userColumn" text="User" prefWidth="120.0" />
+                                        <TableColumn fx:id="actionColumn" text="Action" prefWidth="200.0" />
+                                        <TableColumn fx:id="detailsColumn" text="Details" prefWidth="300.0" />
+                                        <TableColumn fx:id="statusColumn" text="Status" prefWidth="100.0" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+</BorderPane>

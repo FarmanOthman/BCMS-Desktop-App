@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.text.Text?>
+
+<VBox fx:id="sidebar" prefHeight="600.0" prefWidth="250.0" styleClass="sidebar" spacing="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bcms.controller.SidebarController">
+    <!-- Brand Header -->
+    <VBox styleClass="sidebar-header" alignment="CENTER">
+        <Text styleClass="brand-title" text="Bestun Cars" fill="WHITE" />
+        <Text styleClass="brand-subtitle" text="Management System" fill="WHITE" />
+    </VBox>
+    
+    <!-- Navigation Menu -->
+    <VBox spacing="5" VBox.vgrow="ALWAYS">
+        <padding>
+            <Insets top="20" right="10" bottom="10" left="10" />
+        </padding>
+        
+        <!-- Dashboard -->
+        <Button fx:id="dashboardBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Dashboard">
+            <graphic>
+                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Home.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        
+        <!-- Inventory -->
+        <Button fx:id="inventoryBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Cars Inventory">
+            <graphic>
+                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Car Rental.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        
+        <!-- Repairs & Service -->
+        <Button fx:id="repairsBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Repairs &amp; Service">
+            <graphic>
+                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Service.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        
+        <!-- Sales -->
+        <Button fx:id="salesBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Sales">
+            <graphic>
+                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Sales Balance.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        
+        <!-- Customers -->
+                <!-- Customers -->
+        <Button fx:id="customersBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Customers">
+            <graphic>
+                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/User Groups.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        
+        <!-- Analytics -->
+        <Button fx:id="analyticsBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Analytics">
+            <graphic>
+                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Graph.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        
+        <!-- Finance -->
+        <Button fx:id="financeBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Finance">
+            <graphic>
+                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Money.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        
+        <!-- Activity -->
+        <Button fx:id="activityBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Activity">
+            <graphic>
+                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/hugeicons_activity-03.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        
+        <!-- Settings -->
+        <Button fx:id="settingsBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="Settings">
+            <graphic>
+                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Settings.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        
+        <!-- User Management -->
+        <Button fx:id="userMgmtBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="User Management">
+            <graphic>
+                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Male User.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+    </VBox>
+</VBox>

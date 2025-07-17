@@ -6,7 +6,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -17,23 +16,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.net.URL;
 import java.time.LocalDate;
-import java.util.ResourceBundle;
 
-public class RepairsServiceController implements Initializable {
-    
-    // Navigation Buttons
-    @FXML private Button dashboardBtn;
-    @FXML private Button inventoryBtn;
-    @FXML private Button repairsBtn;
-    @FXML private Button salesBtn;
-    @FXML private Button customersBtn;
-    @FXML private Button analyticsBtn;
-    @FXML private Button financeBtn;
-    @FXML private Button activityBtn;
-    @FXML private Button settingsBtn;
-    @FXML private Button userMgmtBtn;
+public class RepairsServiceController extends BaseController {
     
     // Action Buttons
     @FXML private Button addRepairButton;
@@ -63,13 +48,17 @@ public class RepairsServiceController implements Initializable {
     private RepairsServiceViewModel viewModel;
     
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public String getCurrentPageName() {
+        return "repairsService";
+    }
+    
+    @Override
+    public void initializeController() {
         viewModel = new RepairsServiceViewModel();
         
         // Set the handler for edit repair actions
         viewModel.setEditRepairHandler(this::handleEditRepair);
         
-        setupNavigationHandlers();
         setupFilters();
         setupTableView();
         setupPagination();
@@ -78,127 +67,6 @@ public class RepairsServiceController implements Initializable {
         // Load sample data
         loadRepairData();
     }
-    
-    private void setupNavigationHandlers() {
-        // Set Repairs button as active
-        setActiveButton(repairsBtn);
-        
-        // Dashboard button
-        dashboardBtn.setOnAction(e -> {
-            try {
-                setActiveButton(dashboardBtn);
-                openDashboard();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-                showErrorAlert("Navigation Error", "Could not open Dashboard", ex.getMessage());
-            }
-        });
-        
-        // Inventory button
-        inventoryBtn.setOnAction(e -> {
-            try {
-                setActiveButton(inventoryBtn);
-                openInventory();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-                showErrorAlert("Navigation Error", "Could not open Inventory", ex.getMessage());
-            }
-        });
-        
-        // Repairs button (already active)
-        repairsBtn.setOnAction(e -> System.out.println("Repairs & Service already active"));
-        
-        // Sales button
-        salesBtn.setOnAction(e -> {
-            try {
-                setActiveButton(salesBtn);
-                openSales();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-                showErrorAlert("Navigation Error", "Could not open Sales", ex.getMessage());
-            }
-        });
-        
-        // Customers button
-        customersBtn.setOnAction(e -> {
-            try {
-                setActiveButton(customersBtn);
-                openBuyers();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-                showErrorAlert("Navigation Error", "Could not open Buyers", ex.getMessage());
-            }
-        });
-        
-        // Analytics button
-        analyticsBtn.setOnAction(e -> {
-            try {
-                setActiveButton(analyticsBtn);
-                openAnalytics();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                showErrorAlert("Navigation Error", "Could not open Analytics", ex.getMessage());
-            }
-        });
-        
-        // Finance button
-        financeBtn.setOnAction(e -> {
-            try {
-                setActiveButton(financeBtn);
-                openFinance();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                showErrorAlert("Navigation Error", "Could not open Finance", ex.getMessage());
-            }
-        });
-        
-        // Activity button
-        activityBtn.setOnAction(e -> {
-            try {
-                setActiveButton(activityBtn);
-                openActivity();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-                showErrorAlert("Navigation Error", "Could not open Activity", ex.getMessage());
-            }
-        });
-        
-        // Settings button
-        settingsBtn.setOnAction(e -> {
-            setActiveButton(settingsBtn);
-            // Navigate to settings view
-            System.out.println("Navigate to Settings");
-        });
-        
-        // User Management button
-        userMgmtBtn.setOnAction(e -> {
-            try {
-                setActiveButton(userMgmtBtn);
-                openUserManagement();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                showErrorAlert("Navigation Error", "Could not open User Management", ex.getMessage());
-            }
-        });
-    }
-    
-    private void setActiveButton(Button activeBtn) {
-        // Remove active class from all buttons
-        dashboardBtn.getStyleClass().remove("active");
-        inventoryBtn.getStyleClass().remove("active");
-        repairsBtn.getStyleClass().remove("active");
-        salesBtn.getStyleClass().remove("active");
-        customersBtn.getStyleClass().remove("active");
-        analyticsBtn.getStyleClass().remove("active");
-        financeBtn.getStyleClass().remove("active");
-        activityBtn.getStyleClass().remove("active");
-        settingsBtn.getStyleClass().remove("active");
-        userMgmtBtn.getStyleClass().remove("active");
-        
-        // Add active class to selected button
-        activeBtn.getStyleClass().add("active");
-    }
-    
     private void setupFilters() {
         // Set up the status filter
         statusFilter.setItems(FXCollections.observableArrayList(
@@ -369,7 +237,7 @@ public class RepairsServiceController implements Initializable {
             openEditRepairDialog(repair);
         } catch (IOException ex) {
             ex.printStackTrace();
-            showErrorAlert("Error", "Could not open edit repair dialog", ex.getMessage());
+            NavigationController.showErrorAlert("Error", "Could not open edit repair dialog", ex.getMessage());
         }
     }
     
@@ -393,7 +261,7 @@ public class RepairsServiceController implements Initializable {
             
         } catch (IOException e) {
             e.printStackTrace();
-            showErrorAlert("Error", "Could not open new repair dialog", e.getMessage());
+            NavigationController.showErrorAlert("Error", "Could not open new repair dialog", e.getMessage());
         }
     }
     
@@ -419,148 +287,5 @@ public class RepairsServiceController implements Initializable {
         loadRepairData();
     }
     
-    // Navigation methods
-    private void openDashboard() throws IOException {
-        URL fxmlUrl = getClass().getResource("/fxml/Dashboard.fxml");
-        if (fxmlUrl == null) {
-            System.err.println("ERROR: Cannot find Dashboard.fxml. Check your project structure.");
-            throw new IOException("Dashboard.fxml not found");
-        }
-        
-        FXMLLoader loader = new FXMLLoader(fxmlUrl);
-        Parent dashboard = loader.load();
-        Scene dashboardScene = new Scene(dashboard);
-        
-        // Get current stage and set new scene
-        Stage currentStage = (Stage) repairsBtn.getScene().getWindow();
-        currentStage.setScene(dashboardScene);
-        currentStage.show();
-    }
-    
-    private void openInventory() throws IOException {
-        URL fxmlUrl = getClass().getResource("/fxml/Inventory.fxml");
-        if (fxmlUrl == null) {
-            System.err.println("ERROR: Cannot find Inventory.fxml. Check your project structure.");
-            throw new IOException("Inventory.fxml not found");
-        }
-        
-        FXMLLoader loader = new FXMLLoader(fxmlUrl);
-        Parent inventory = loader.load();
-        Scene inventoryScene = new Scene(inventory);
-        
-        // Get current stage and set new scene
-        Stage currentStage = (Stage) repairsBtn.getScene().getWindow();
-        currentStage.setScene(inventoryScene);
-        currentStage.show();
-    }
-    
-    private void openSales() throws IOException {
-        URL fxmlUrl = getClass().getResource("/fxml/Sales.fxml");
-        if (fxmlUrl == null) {
-            System.err.println("ERROR: Cannot find Sales.fxml. Check your project structure.");
-            throw new IOException("Sales.fxml not found");
-        }
-        
-        FXMLLoader loader = new FXMLLoader(fxmlUrl);
-        Parent sales = loader.load();
-        Scene salesScene = new Scene(sales);
-        
-        // Get current stage and set new scene
-        Stage currentStage = (Stage) repairsBtn.getScene().getWindow();
-        currentStage.setScene(salesScene);
-        currentStage.show();
-    }
-    
-    private void openBuyers() throws IOException {
-        URL fxmlUrl = getClass().getResource("/fxml/Buyer.fxml");
-        if (fxmlUrl == null) {
-            System.err.println("ERROR: Cannot find Buyer.fxml. Check your project structure.");
-            throw new IOException("Buyer.fxml not found");
-        }
-        
-        FXMLLoader loader = new FXMLLoader(fxmlUrl);
-        Parent buyers = loader.load();
-        Scene buyersScene = new Scene(buyers);
-        
-        // Get current stage and set new scene
-        Stage currentStage = (Stage) repairsBtn.getScene().getWindow();
-        currentStage.setScene(buyersScene);
-        currentStage.show();
-    }
-    
-    private void openAnalytics() throws IOException {
-        URL fxmlUrl = getClass().getResource("/fxml/Analytics.fxml");
-        if (fxmlUrl == null) {
-            System.err.println("ERROR: Cannot find Analytics.fxml. Check your project structure.");
-            throw new IOException("Analytics.fxml not found");
-        }
-        
-        FXMLLoader loader = new FXMLLoader(fxmlUrl);
-        Parent analytics = loader.load();
-        Scene analyticsScene = new Scene(analytics);
-        
-        // Get current stage and set new scene
-        Stage currentStage = (Stage) repairsBtn.getScene().getWindow();
-        currentStage.setScene(analyticsScene);
-        currentStage.show();
-    }
-    
-    private void openFinance() throws IOException {
-        URL fxmlUrl = getClass().getResource("/fxml/finance.fxml");
-        if (fxmlUrl == null) {
-            System.err.println("ERROR: Cannot find finance.fxml. Check your project structure.");
-            throw new IOException("finance.fxml not found");
-        }
-        
-        FXMLLoader loader = new FXMLLoader(fxmlUrl);
-        Parent finance = loader.load();
-        Scene financeScene = new Scene(finance);
-        
-        // Get current stage and set new scene
-        Stage currentStage = (Stage) repairsBtn.getScene().getWindow();
-        currentStage.setScene(financeScene);
-        currentStage.show();
-    }
-    
-    private void openActivity() throws IOException {
-        URL fxmlUrl = getClass().getResource("/fxml/Activity.fxml");
-        if (fxmlUrl == null) {
-            System.err.println("ERROR: Cannot find Activity.fxml. Check your project structure.");
-            throw new IOException("Activity.fxml not found");
-        }
-        
-        FXMLLoader loader = new FXMLLoader(fxmlUrl);
-        Parent activity = loader.load();
-        Scene activityScene = new Scene(activity);
-        
-        // Get current stage and set new scene
-        Stage currentStage = (Stage) repairsBtn.getScene().getWindow();
-        currentStage.setScene(activityScene);
-        currentStage.show();
-    }
-    
-    private void openUserManagement() throws IOException {
-        URL fxmlUrl = getClass().getResource("/fxml/UserManagement.fxml");
-        if (fxmlUrl == null) {
-            System.err.println("ERROR: Cannot find UserManagement.fxml. Check your project structure.");
-            throw new IOException("UserManagement.fxml not found");
-        }
-        
-        FXMLLoader loader = new FXMLLoader(fxmlUrl);
-        Parent userManagement = loader.load();
-        Scene userManagementScene = new Scene(userManagement);
-        
-        // Get current stage and set new scene
-        Stage currentStage = (Stage) repairsBtn.getScene().getWindow();
-        currentStage.setScene(userManagementScene);
-        currentStage.show();
-    }
-    
-    private void showErrorAlert(String title, String header, String content) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
+   
 }
