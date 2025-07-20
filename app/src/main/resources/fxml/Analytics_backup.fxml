@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.chart.*?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bcms.controller.AnalyticsController">
+<BorderPane prefHeight="900.0" prefWidth="1400.0" stylesheets="@../styles/analytics.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bcms.controller.AnalyticsController">
    <left>
       <!-- Sidebar Container -->
       <VBox fx:id="sidebarContainer" prefWidth="240.0" BorderPane.alignment="CENTER" />
@@ -13,157 +26,7 @@
    
    <center>
       <!-- Main Content -->
-      <ScrollPane fitToHeight="true" fitToWidth="true">
-         <content>
-            <VBox spacing="20.0">
-               <padding>
-                  <Insets top="30.0" right="30.0" bottom="30.0" left="30.0" />
-               </padding>
-               <children>
-                  <!-- Header Section -->
-                  <HBox alignment="CENTER_LEFT">
-                     <children>
-                        <VBox>
-                           <children>
-                              <Label text="Business Analytics" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
-                              <Label text="Dashboard and data insights" />
-                           </children>
-                        </VBox>
-                        <Region HBox.hgrow="ALWAYS" />
-                        <ComboBox fx:id="periodComboBox" promptText="Time Period" />
-                        <Button fx:id="exportButton" text="Export Report" />
-                     </children>
-                  </HBox>
-                  
-                  <!-- Analytics Content -->
-                  <VBox spacing="30.0">
-                     <children>
-                        <!-- Statistics Cards -->
-                        <GridPane hgap="20.0" vgap="20.0">
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" />
-                              <ColumnConstraints hgrow="SOMETIMES" />
-                              <ColumnConstraints hgrow="SOMETIMES" />
-                              <ColumnConstraints hgrow="SOMETIMES" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints vgrow="SOMETIMES" />
-                           </rowConstraints>
-                           <children>
-                              <VBox style="-fx-background-color: #2d3447; -fx-padding: 15px; -fx-background-radius: 8px;">
-                                 <children>
-                                    <Label text="Total Sales" style="-fx-text-fill: white;" />
-                                    <Label fx:id="totalSalesValue" text="152" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" />
-                                    <Label fx:id="totalSalesChange" text="+12% from last period" style="-fx-text-fill: #4CAF50;" />
-                                 </children>
-                              </VBox>
-                              <VBox style="-fx-background-color: #2d3447; -fx-padding: 15px; -fx-background-radius: 8px;" GridPane.columnIndex="1">
-                                 <children>
-                                    <Label text="Revenue" style="-fx-text-fill: white;" />
-                                    <Label fx:id="revenueValue" text="$892,456" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" />
-                                    <Label fx:id="revenueChange" text="+8.2% from last period" style="-fx-text-fill: #4CAF50;" />
-                                 </children>
-                              </VBox>
-                              <VBox style="-fx-background-color: #2d3447; -fx-padding: 15px; -fx-background-radius: 8px;" GridPane.columnIndex="2">
-                                 <children>
-                                    <Label text="Avg. Sale Price" style="-fx-text-fill: white;" />
-                                    <Label fx:id="avgSalePriceValue" text="$35,689" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" />
-                                    <Label fx:id="avgSalePriceChange" text="+2.5% from last period" style="-fx-text-fill: #4CAF50;" />
-                                 </children>
-                              </VBox>
-                              <VBox style="-fx-background-color: #2d3447; -fx-padding: 15px; -fx-background-radius: 8px;" GridPane.columnIndex="3">
-                                 <children>
-                                    <Label text="Profit Margin" style="-fx-text-fill: white;" />
-                                    <Label fx:id="profitMarginValue" text="24.8%" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" />
-                                    <Label fx:id="profitMarginChange" text="-1.2% from last period" style="-fx-text-fill: #F44336;" />
-                                 </children>
-                              </VBox>
-                           </children>
-                        </GridPane>
-                        
-                        <!-- Sales Trend Chart -->
-                        <VBox spacing="10.0">
-                           <children>
-                              <Label text="Sales Trend" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
-                              <BarChart fx:id="salesTrendChart" prefHeight="300.0">
-                                 <xAxis>
-                                    <CategoryAxis side="BOTTOM" />
-                                 </xAxis>
-                                 <yAxis>
-                                    <NumberAxis side="LEFT" />
-                                 </yAxis>
-                              </BarChart>
-                           </children>
-                        </VBox>
-                        
-                        <!-- Performance Metrics -->
-                        <VBox spacing="10.0">
-                           <children>
-                              <HBox alignment="CENTER_LEFT">
-                                 <children>
-                                    <Label text="Performance Metrics" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
-                                    <Region HBox.hgrow="ALWAYS" />
-                                    <ComboBox fx:id="metricsFilterComboBox" promptText="Filter" />
-                                 </children>
-                              </HBox>
-                              
-                              <!-- Simplified Performance Grid -->
-                              <GridPane hgap="20.0" vgap="20.0">
-                                 <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" />
-                                    <ColumnConstraints hgrow="SOMETIMES" />
-                                    <ColumnConstraints hgrow="SOMETIMES" />
-                                 </columnConstraints>
-                                 <rowConstraints>
-                                    <RowConstraints vgrow="SOMETIMES" />
-                                    <RowConstraints vgrow="SOMETIMES" />
-                                 </rowConstraints>
-                                 <children>
-                                    <VBox style="-fx-background-color: #2d3447; -fx-padding: 15px; -fx-background-radius: 8px;">
-                                       <children>
-                                          <Label text="Inventory Turnover" style="-fx-text-fill: white;" />
-                                          <Label fx:id="inventoryTurnoverValue" text="4.2x" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" />
-                                       </children>
-                                    </VBox>
-                                    <VBox style="-fx-background-color: #2d3447; -fx-padding: 15px; -fx-background-radius: 8px;" GridPane.columnIndex="1">
-                                       <children>
-                                          <Label text="Avg. Days in Inventory" style="-fx-text-fill: white;" />
-                                          <Label fx:id="daysInInventoryValue" text="28 days" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" />
-                                       </children>
-                                    </VBox>
-                                    <VBox style="-fx-background-color: #2d3447; -fx-padding: 15px; -fx-background-radius: 8px;" GridPane.columnIndex="2">
-                                       <children>
-                                          <Label text="Customer Retention" style="-fx-text-fill: white;" />
-                                          <Label fx:id="customerRetentionValue" text="78%" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" />
-                                       </children>
-                                    </VBox>
-                                    <VBox style="-fx-background-color: #2d3447; -fx-padding: 15px; -fx-background-radius: 8px;" GridPane.rowIndex="1">
-                                       <children>
-                                          <Label text="Sales Growth" style="-fx-text-fill: white;" />
-                                          <Label fx:id="salesGrowthValue" text="12.4%" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" />
-                                       </children>
-                                    </VBox>
-                                    <VBox style="-fx-background-color: #2d3447; -fx-padding: 15px; -fx-background-radius: 8px;" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                       <children>
-                                          <Label text="Return Rate" style="-fx-text-fill: white;" />
-                                          <Label fx:id="returnRateValue" text="2.1%" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" />
-                                       </children>
-                                    </VBox>
-                                    <VBox style="-fx-background-color: #2d3447; -fx-padding: 15px; -fx-background-radius: 8px;" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                                       <children>
-                                          <Label text="Customer Satisfaction" style="-fx-text-fill: white;" />
-                                          <Label fx:id="customerSatisfactionValue" text="4.8/5" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" />
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </GridPane>
-                           </children>
-                        </VBox>
-                     </children>
-                  </VBox>
-               </children>
-            </VBox>
-         </content>
+      <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="main-content">
          <content>
             <VBox spacing="20.0">
                <padding>

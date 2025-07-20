@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="900.0" prefWidth="1400.0" stylesheets="@../styles/finance.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bcms.controller.FinanceController">
+    <left>
+        <!-- Sidebar Container -->
+        <VBox fx:id="sidebarContainer" prefWidth="240.0" BorderPane.alignment="CENTER" />
+    </left>
+    
+    <center>
+        <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="main-content">
+            <content>
+                <VBox spacing="20.0">
+                    <padding>
+                        <Insets top="30.0" right="30.0" bottom="30.0" left="30.0" />
+                    </padding>
+                    <children>
+                        <!-- Page Title -->
+                        <HBox styleClass="page-header" alignment="CENTER_LEFT">
+                            <children>
+                                <VBox>
+                                    <children>
+                                        <Label styleClass="finance-title" text="Finance Records">
+                                            <font>
+                                                <Font name="System Bold" size="24.0" />
+                                            </font>
+                                        </Label>
+                                        <Label styleClass="finance-subtitle" text="Track all non-car related expenses and income" />
+                                    </children>
+                                </VBox>
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Button fx:id="addExpenseButton" styleClass="add-expense-button" text="+ Add Expense" />
+                                <Button fx:id="deleteButton" styleClass="delete-button" text="Delete" />
+                                <Button fx:id="addIncomeButton" styleClass="add-income-button" text="+ Add Income" />
+                            </children>
+                        </HBox>
+                        
+                        <!-- Finance Summary Cards -->
+                        <GridPane hgap="20.0" vgap="20.0">
+                            <columnConstraints>
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <VBox styleClass="stat-card">
+                                    <Label text="Total Revenue" styleClass="stat-title" />
+                                    <Label fx:id="totalRevenueLabel" text="$125,678.00" styleClass="stat-value" />
+                                </VBox>
+                                <VBox styleClass="stat-card" GridPane.columnIndex="1">
+                                    <Label text="Monthly Revenue" styleClass="stat-title" />
+                                    <Label fx:id="monthlyRevenueLabel" text="$12,450.00" styleClass="stat-value" />
+                                </VBox>
+                                <VBox styleClass="stat-card" GridPane.columnIndex="2">
+                                    <Label text="Total Expenses" styleClass="stat-title" />
+                                    <Label fx:id="totalExpensesLabel" text="$54,321.00" styleClass="stat-value" />
+                                </VBox>
+                                <VBox styleClass="stat-card" GridPane.columnIndex="3">
+                                    <Label text="Net Profit" styleClass="stat-title" />
+                                    <Label fx:id="netProfitLabel" text="$71,357.00" styleClass="stat-value" />
+                                </VBox>
+                            </children>
+                        </GridPane>
+                        
+                        <!-- Filters Section -->
+                        <HBox styleClass="filters-section" spacing="15" alignment="CENTER_LEFT">
+                            <TextField fx:id="searchField" promptText="Search by Category or Description" HBox.hgrow="ALWAYS" />
+                            <ComboBox fx:id="timeFilter" prefWidth="150" promptText="Time Period" />
+                            <ComboBox fx:id="typeFilter" prefWidth="150" promptText="Type" />
+                            <Button fx:id="resetButton" styleClass="reset-button" text="Reset" />
+                        </HBox>
+                        
+                        <!-- Chart Section -->
+                        <VBox spacing="15.0">
+                            <Label text="Financial Trends" styleClass="section-title">
+                                <font>
+                                    <Font name="System Bold" size="16.0" />
+                                </font>
+                            </Label>
+                            <BarChart fx:id="financeChart" prefHeight="300.0">
+                                <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                    <NumberAxis side="LEFT" />
+                                </yAxis>
+                            </BarChart>
+                        </VBox>
+                        
+                        <!-- Table View Section -->
+                        <VBox VBox.vgrow="ALWAYS">
+                            <TableView fx:id="financeTableView" styleClass="finance-table" VBox.vgrow="ALWAYS">
+                                <columns>
+                                    <TableColumn fx:id="idColumn" text="ID" prefWidth="80" />
+                                    <TableColumn fx:id="typeColumn" text="Type" prefWidth="100" />
+                                    <TableColumn fx:id="categoryColumn" text="Category" prefWidth="150" />
+                                    <TableColumn fx:id="amountColumn" text="Amount" prefWidth="120" />
+                                    <TableColumn fx:id="descriptionColumn" text="Description" prefWidth="350" />
+                                    <TableColumn fx:id="dateColumn" text="Date" prefWidth="120" />
+                                    <TableColumn fx:id="actionsColumn" text="Actions" prefWidth="100" />
+                                </columns>
+                            </TableView>
+                            
+                            <!-- Pagination -->
+                            <Pagination fx:id="pagination" maxPageIndicatorCount="5" pageCount="10" />
+                        </VBox>
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+</BorderPane>
